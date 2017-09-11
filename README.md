@@ -1,4 +1,4 @@
-# biorad1sc_reader_doc
+# biorad1sc_doc
 
 This repository contains documentation for Bio-Rad 1sc files.  It is based on examining *.1sc files and deducing the structure.
 
