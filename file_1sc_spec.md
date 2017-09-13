@@ -26,13 +26,13 @@ File bytes | Numbers or ASCII | Description
 -----------|------------------|-------------
 0-1        | Numbers | 0xAF, 0xAF
 2-31       | ASCII   | ``Stable File Version 2.0 ``\r\n``  ``\r\n
-32-55      | ASCII   | ``Intel Format          ``\r\n
+32-55      | ASCII   | ``Intel Format``\<10 spaces\>\r\n
 56-95      | ASCII   | ``Bio-Rad Scan File - ID ``\<17-digit number\>
 96-135     | ASCII   | \<38 spaces\>\r\n
-136-139    | Numbers | 0xC8, 0x00, 0x00, 0x00 (uint16 0x000000C8 = 200)
+136-139    | Numbers | 0xC8, 0x00, 0x00, 0x00 (uint32 0x000000C8 = 200)
 140-143    | Numbers | 0x03, 0x00, 0x00, 0x00 (uint32 0x00000003 = 3)
 144-147    | Numbers | 0x00, 0x00, 0x00, 0x00 (uint32 0x00000000 = 0)
-148-151    | Numbers | 0x2C, 0x10, 0x00, 0x00 (uint32 0x0000012C = 300)
+148-151    | Numbers | Start of Data Block 0 (byte offset from start of file)
 152-155    | Numbers | uint32 \<length of file - 4140\><br/>Number of bytes from start of Data Block 0 to End Of File.
 156-159    | Numbers | 0x00, 0x00, 0x01, 0x00 (uint32 0x10000 = 4096)
 160-379    | Numbers | Data Fields Describing Data Blocks<br>11x 20-byte Fields
