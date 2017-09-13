@@ -24,7 +24,7 @@ The file is made up of a file header from bytes 0 through 4139, followed by
 
 File bytes | Numbers or ASCII | Description
 -----------|------------------|-------------
-0-1        | Numbers | 0xAF, 0xAF
+0-1        | Numbers | 0xAF, 0xAF ('Magic Number' 1sc file ID)
 2-31       | ASCII   | ``Stable File Version 2.0 ``\r\n``  ``\r\n
 32-55      | ASCII   | ``Intel Format``\<10 spaces\>\r\n
 56-95      | ASCII   | ``Bio-Rad Scan File - ID ``\<17-digit number\>
