@@ -150,8 +150,8 @@ After the File Header, the basic progression of Fields is as follows:
 and reference to a Field Type 101 containing definitions of the data in
 the collection.
 1. Field Type 101 defining multiple data items.  Each item has a string
-reference serving as a label, a number showing which following Field Type
-containing actual data, and a corresponding Field Type 100 reference
+reference serving as a label, the Field Type which contains
+the actual data, and a corresponding Field Type 100 reference
 which serves as the Data Key to explain the regions of the data.
 The Field(s) containing the data follow this Field, **until the next
 Field Type 102 is found.**  When the next Field Type 102 is found, it
@@ -283,7 +283,6 @@ Field bytes | Number Format | Description
 16-19   | uint32 | Item 0 Data Key: Reference to Field Type 100
 20-23   | uint16 | Item 0 Total bytes in data.
 24-27   | uint32 | Item 0 Label: Reference to Field Type 16 string
-        |        |
 28-31   | uint16 | Item 1 Field Type containing data
 ...     | ...    | ...
 
