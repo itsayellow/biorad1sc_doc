@@ -334,7 +334,7 @@ Field bytes | Number Format | Description
 34-35   | uint16 | Region 0 Field Type pointed to (if Data Type is reference)
 36-39   | uint16 | Region 0 Unknown4
 40-43   | uint16 | Region 0 Unknown5
-.       |        |
+        |        | .
 44-47   | uint16 | Region 1 Unknown0
 ...     | ...    | ...
 
@@ -354,7 +354,7 @@ Field bytes | Number Format | Description
 8-11  | uint32 | Item 0 Reference to Field Type 1000
 12-15 | uint32 | Item 0 Reference to Field Type 16 string
 16-19 | uint16 | Item 0 Unknown
-      |        |
+      |        |  
 20-23 | uint32 | Item 1 Reference to Field Type 1000
 ...   | ...    | ...
 
