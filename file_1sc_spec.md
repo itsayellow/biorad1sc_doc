@@ -150,8 +150,9 @@ After the File Header, the basic progression of Fields is as follows:
 Field Type 101
 1. Field Type 101 defining multiple data items.  Each item has a string
 references serving as a label, a number showing which following Field Type
-contains the actual data, and a corresponding Field Type 100 which serves as
-the Data Key to explain the regions of the data.  The field containing the data
+contains the actual data, and a corresponding Field Type 100 reference
+which serves as the Data Key to explain the regions of the data.
+The field containing the data
 is the next field of that type following this Field, **unless the next
 Field Type 102 is found first.**  If Field Type 102 is found before
 the actual data Field Type is found, then the actual data does not exist
