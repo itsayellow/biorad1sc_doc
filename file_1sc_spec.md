@@ -283,6 +283,7 @@ Field bytes | Number Format | Description
 16-19   | uint32 | Item 0 Data Key: Reference to Field Type 100
 20-23   | uint16 | Item 0 Total bytes in data.
 24-27   | uint32 | Item 0 Label: Reference to Field Type 16 string
+.       |        |  
 28-31   | uint16 | Item 1 Field Type containing data
 ...     | ...    | ...
 
@@ -333,7 +334,7 @@ Field bytes | Number Format | Description
 34-35   | uint16 | Region 0 Field Type pointed to (if Data Type is reference)
 36-39   | uint16 | Region 0 Unknown4
 40-43   | uint16 | Region 0 Unknown5
-        |        |
+.       |        |
 44-47   | uint16 | Region 1 Unknown0
 ...     | ...    | ...
 
