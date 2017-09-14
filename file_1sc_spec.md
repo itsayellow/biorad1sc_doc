@@ -146,10 +146,11 @@ Field IDs can be different for the same string in different files.  They are not
 
 After the File Header, the basic progression of Fields is as follows:
 
-1. Field Type 102 defining a collection, with a Label and reference to a 
-Field Type 101
+1. Field Type 102 defining a collection, with a Label string reference
+and reference to a Field Type 101 containing definitions of the data in
+the collection.
 1. Field Type 101 defining multiple data items.  Each item has a string
-references serving as a label, a number showing which following Field Type
+reference serving as a label, a number showing which following Field Type
 containing actual data, and a corresponding Field Type 100 reference
 which serves as the Data Key to explain the regions of the data.
 The Field(s) containing the data follow this Field, **until the next
@@ -164,6 +165,8 @@ Sometimes Field Type 131 can serve as the data field, usually to contain
 references to textual information
 
 This cycle starts over when the next Field Type 102 is encountered.
+
+The cycle can span multiple Data Blocks.
 
 ### Field Hierarchy (probably obsolete, to be deleted)
 
@@ -241,64 +244,11 @@ Field Type   | Contains References to types | Is Referenced by types | Notes
 -------------|------------------------------|------------------------|-------
 16 | **None** | 100, 101, 102, 131, 1000 | Previous data fields reference this via Field ID<br>Null-terminated string.  (0x00 is always last byte of payload)<br>Field ID: most significant 16-bits are usually one of: 0x0085, 0x0086, 0x0087, 0x0088, 0x008a, 0x014a, 0x014c, 0x014d, 0x0919, 0x091b, 0x1004, 0x1043, 0x1045, 0x107b, 0x107d, 0x1083, 0x1097, 0x1099, 0x10b9, 0x10d9, 0x11e4, 0x1289, 0x1441
 
-### Data Container Fields
-
-#### Field Type 100
-
-Every 36 bytes is a data item, starting at beginning of Field Payload, until
-end of field.  Field ID references are to String Fields later in file.
-
-Num Words, Pointer Byte Offset, and Word Size refer to the payload of a
-future Field Type 1000 (and possibly other types?)  It is unclear how to
-determine which specific field these pointers refer to.
-
-Field Type   | Contains References to types | Is Referenced by types
--------------|------------------------------|-----------------------
-100          | 16                           | 101
-
-Field bytes | Number Format | Description
-------------|---------------|-------------
-8-11    | uint16 | Item 0 Unknown0
-12-15   | uint32 | Item 0 Num Words
-16-19   | uint32 | Item 0 Pointer Byte Offset
-20-23   | uint32 | Item 0 Reference to Field Type 16 string
-24-27   | uint16 | Item 0 Unknown1
-28-31   | uint32 | Item 0 Word Size (bytes)
-32-33   | uint16 | Item 0 Unknown2
-34-35   | uint16 | Item 0 Unknown3
-36-39   | uint16 | Item 0 Unknown4
-40-43   | uint16 | Item 0 Unknown5
-        |        |
-44-47   | uint16 | Item 1 Unknown0
-...     | ...    | ...
-
-
-#### Field Type 101
-
-Every 20 bytes is data item until end of field.
-
-Field Type   | Contains References to types | Is Referenced by types
--------------|------------------------------|-----------------------
-101          | 16, 100                      | 102
-
-Field bytes | Number Format | Description
-------------|---------------|-------------
-8-11    | uint16 | Item 0 Unknown0
-12-15   | uint16 | Item 0 Unknown1
-16-19   | uint32 | Item 0 Reference to Field Type 100
-20-23   | uint16 | Item 0 Unknown2
-24-27   | uint32 | Item 0 Reference to Field Type 16 string
-        |        |
-28-31   | uint16 | Item 1 Unknown0
-...     | ...    | ...
-
+### Data Description Fields
 
 #### Field Type 102
 
-A **Root Field** of hierarchy.
-
-Every 16 bytes is data item until end of field.  Often (always?) only one
-data item.
+Data Collection definition.  A **Root Field** of hierarchy.
 
 Field Type   | Contains References to types | Is Referenced by types
 -------------|------------------------------|-----------------------
@@ -306,14 +256,90 @@ Field Type   | Contains References to types | Is Referenced by types
 
 Field bytes | Number Format | Description
 ------------|---------------|-------------
-8-11  | uint16 | Item 0 Unknown0
-12-15 | uint16 | Item 0 Unknown1
-16-19 | uint32 | Item 0 Reference to Field Type 101
-20-23 | uint32 | Item 0 Reference to Field Type 16 string
-      |        |
-24-27 | uint16 | Item 1 Unknown0
-...   | ...    | ...
+8-9   | uint16 | Unknown0
+10-11 | uint16 | Unknown1
+12-13 | uint16 | Unknown2 (1000)
+14-15 | uint16 | Items in Collection
+16-19 | uint32 | Collection: Reference to Field Type 101
+20-23 | uint32 | Label: Reference to Field Type 16 string
 
+
+#### Field Type 101
+
+Data Item definitions.
+
+Every 20 bytes is a data item until end of field.
+
+Field Type   | Contains References to types | Is Referenced by types
+-------------|------------------------------|-----------------------
+101          | 16, 100                      | 102
+
+Field bytes | Number Format | Description
+------------|---------------|-------------
+8-9     | uint16 | Item 0 Field Type containing data
+10-11   | uint16 | Item 0 Unknown0 (4,5,6,7,16,20,21,22,23)
+12-13   | uint16 | Item 0 Unknown1 (1000)
+14-15   | uint16 | Item 0 Number of regions in data.
+16-19   | uint32 | Item 0 Data Key: Reference to Field Type 100
+20-23   | uint16 | Item 0 Total bytes in data.
+24-27   | uint32 | Item 0 Label: Reference to Field Type 16 string
+        |        |
+28-31   | uint16 | Item 1 Field Type containing data
+...     | ...    | ...
+
+
+#### Field Type 100
+
+Data Key explaining each Data Item in a collection.
+
+Every 36 bytes is a data region definition, starting at beginning of
+Field Payload, until end of field.  Field ID references are to String Fields
+later in file.
+
+Num Words, Pointer Byte Offset, and Word Size refer to the payload of a
+future Field Type of actual data tied to this key in a Data Item 
+definition in Field Type 101.
+
+Data Type can be one of the following:
+
+Data Type code | Description
+---------------|------------
+1  | byte
+2  | ASCII
+3  | u?int16
+4  | u?int16
+5  | u?int32
+6  | u?int32
+7  | u?int64
+9  | u?int64
+10 | 8-byte - float?
+15 | uint32 Reference
+17 | uint32 Reference
+
+
+Field Type   | Contains References to types | Is Referenced by types
+-------------|------------------------------|-----------------------
+100          | 16                           | 101
+
+Field bytes | Number Format | Description
+------------|---------------|-------------
+8-9     | uint16 | Region 0 Data Type
+10-11   | uint32 | Region 0 Index
+12-15   | uint32 | Region 0 Num Words
+16-19   | uint32 | Region 0 Pointer Byte Offset
+20-23   | uint32 | Region 0 Label: Reference to Field Type 16 string
+24-27   | uint16 | Region 0 Unknown1
+28-31   | uint32 | Region 0 Word Size (bytes)
+32-33   | uint16 | Region 0 Unknown2
+34-35   | uint16 | Region 0 Field Type pointed to (if Data Type is reference)
+36-39   | uint16 | Region 0 Unknown4
+40-43   | uint16 | Region 0 Unknown5
+        |        |
+44-47   | uint16 | Region 1 Unknown0
+...     | ...    | ...
+
+
+### Data Container Fields
 
 #### Field Type 131
 
@@ -335,8 +361,7 @@ Field bytes | Number Format | Description
 
 #### Field Type 1000
 
-A **Root Field** of hierarchy.  Can be involved in **circular references**
-that eventually refer back to self.  Data in this field pointed to from data
+Data in this field pointed to from data
 in Field Type 100 (and other types?)  Is format fixed based on which data
 block?
 
