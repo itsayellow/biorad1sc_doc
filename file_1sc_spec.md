@@ -32,8 +32,8 @@ File bytes | Numbers or ASCII | Description
 136-139    | Numbers | 0xC8, 0x00, 0x00, 0x00 (uint32 0x000000C8 = 200)
 140-143    | Numbers | 0x03, 0x00, 0x00, 0x00 (uint32 0x00000003 = 3)
 144-147    | Numbers | 0x00, 0x00, 0x00, 0x00 (uint32 0x00000000 = 0)
-148-151    | Numbers | Start of Data Block 0 (byte offset from start of file)
-152-155    | Numbers | uint32 \<length of file - 4140\><br/>Number of bytes from start of Data Block 0 to End Of File.
+148-151    | uint32  | Start of Data Block 0 (byte offset from start of file)
+152-155    | uint32  | \<length of file - 4140\><br/>Number of bytes from start of Data Block 0 to End Of File.
 156-159    | Numbers | 0x00, 0x00, 0x01, 0x00 (uint32 0x10000 = 4096)
 160-379    | Numbers | Data Fields Describing Data Blocks<br>11x 20-byte Fields
 380-4139   | Numbers | 3760 bytes of 0x00
@@ -142,7 +142,27 @@ Field IDs can be different for the same string in different files.  They are not
 
 ## Field Types
 
-### Field Referencing Hierarchy
+### Field Referencing Sequence
+
+After the File Header, the basic progression of Fields is as follows:
+
+1. Field Type 102 defining a collection, with a Label and reference to a 
+Field Type 101
+1. Field Type 101 defining multiple data items.  Each item has a string
+references serving as a label, a number showing which following Field Type
+contains the actual data, and a corresponding Field Type 100 which serves as
+the Data Key to explain the regions of the data.  The field containing the data
+is the next field of that type following this Field, **unless the next
+Field Type 102 is found first.**  If Field Type 102 is found before
+the actual data Field Type is found, then the actual data does not exist
+for this item.
+1. A series of Field Type 100's, serving as Data Keys for all the Data Items.
+1. A series of data container fields, usually of Type 1000 or larger numbers.
+
+This cycle starts over when the next Field Type 102 is encountered.
+
+### Field Hierarchy (probably obsolete, to be deleted)
+
 Root types: 102, 1000, 1004, 1015
 
 A single Field Type 16 can be repeatedly referenced by multiple fields.
