@@ -166,7 +166,15 @@ references to textual information
 
 This cycle starts over when the next Field Type 102 is encountered.
 
-The cycle can span multiple Data Blocks.
+The Data Blocks come in paris.  Each even-numbered Data Block (starting with 0)
+contains field types 102,101, and 100.  These define the structure of the data
+following in the next Data Block.  The following odd-numbered Data Block
+contains the actual data in field types 131 and fields numbered 1000 and 
+greater.
+
+The exception to the pattern of pairs of Data Blocks is Data Block 10,
+containing image data.  It has no fields, no previous structure definition,
+and only contains raw image data.
 
 ### Field Hierarchy (probably obsolete, to be deleted)
 
