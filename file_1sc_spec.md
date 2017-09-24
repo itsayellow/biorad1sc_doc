@@ -56,7 +56,9 @@ one can use the following method when encountering Field Type 0:
     * Field Len: 8
     * Field ID: 0
 2. Parse the Data Block Footer
-    1. Keep reading groups of 7x uint16 values as long as the values satsify: (non-zero, any, 0, any, 0, non-zero, 0)
+    1. Keep reading groups of 7x uint16 values until the end of this Data
+        Block, known from reading of the Data Block info fields in the File
+        Header.
 3. Parse the next Data Block Header
     2. Read 2x uint32 values.
 
@@ -150,7 +152,7 @@ After the File Header, the basic progression of Fields is as follows:
 and reference to a Field Type 101 containing definitions of the data in
 the collection.
 1. Field Type 101 defining multiple data items.  Each item has a string
-reference serving as a label, the Field Type which contains
+reference serving as a label, the Field Type which would contain
 the actual data, and a corresponding Field Type 100 reference
 which serves as the Data Key to explain the regions of the data.
 The Field(s) containing the data follow this Field, **until the next
@@ -160,47 +162,19 @@ the actual data Field Type is found, then the actual data does not exist
 for this item.
 1. A series of Field Type 100's, serving as Data Keys for each of the
 Data Items.
-1. A series of data container fields, usually of Type 1000 or larger numbers.
-Sometimes Field Type 131 can serve as the data field, usually to contain
-references to textual information
+1. A series of data container fields, with Field Types greater than 102,
+usually 1000 and above.
 
 This cycle starts over when the next Field Type 102 is encountered.
 
 The Data Blocks come in paris.  Each even-numbered Data Block (starting with 0)
 contains field types 102,101, and 100.  These define the structure of the data
 following in the next Data Block.  The following odd-numbered Data Block
-contains the actual data in field types 131 and fields numbered 1000 and 
-greater.
+contains the actual data in field types numbered greater than 102.
 
 The exception to the pattern of pairs of Data Blocks is Data Block 10,
 containing image data.  It has no fields, no previous structure definition,
 and only contains raw image data.
-
-### Field Hierarchy (probably obsolete, to be deleted)
-
-Root types: 102, 1000, 1004, 1015
-
-A single Field Type 16 can be repeatedly referenced by multiple fields.
-
-```
-102  ->  101 ->  100 ->  16
-    \->  16 \->  16
-
-1015 -> 1008 -> 1007 -> 16
-    \-> 1024 -> 1022 -> 16
-    \-> 2
-
-1000 -> 1020 -> 1011 -> 1010 -> 1040 -> 131  -> 16
-    |       |               |       |       \-> 1000 -> ...
-    |       |               |       \-> 1000 -> ...
-    |       |               \-> 1000 -> ...
-    |       \-> 1000 -> ...
-    \-> 1030 -> 1040 -> ...
-    |       \-> 1000 -> ...
-    \-> 1000 -> ...
-    \-> 16
-
-```
 
 ### NOP Fields
 
@@ -254,6 +228,16 @@ Field Type   | Contains References to types | Is Referenced by types | Notes
 
 ### Data Description Fields
 
+#### Data Description Fields Hierarchy
+
+Field Types 102, 101, 100, (and 16) reference each other as follows:
+
+```
+102  ->  101 ->  100 ->  16
+    \->  16 \->  16
+```
+
+
 #### Field Type 102
 
 Data Collection definition.  A **Root Field** of hierarchy.
@@ -305,8 +289,13 @@ Field Payload, until end of field.  Field ID references are to String Fields
 later in file.
 
 Num Words, Pointer Byte Offset, and Word Size refer to the payload of a
-future Field Type of actual data tied to this key in a Data Item 
+future data container Field Type tied to this key in a Data Item 
 definition in Field Type 101.
+
+It is possible for total bytes in a payload of a corresponding data container
+field to be a multiple of the bytes defined by this Field Type 100.  In this
+case, the regions defined here would be repeated when parsing the data
+container field.
 
 Data Type can be one of the following:
 
@@ -323,7 +312,8 @@ Data Type code | Description
 10 | 8-byte - float?
 15 | uint32 Reference
 17 | uint32 Reference
-
+.  | .
+> 17 | ???
 
 Field Type   | Contains References to types | Is Referenced by types
 -------------|------------------------------|-----------------------
@@ -349,58 +339,23 @@ Field bytes | Number Format | Description
 
 ### Data Container Fields
 
-#### Field Type 131
+Data Container fields have Field Types greater than 102.
 
-Every 12 bytes is data item.  Bytes 4-7 are uint32 Field ID reference
+Each of these contains data, the format of which is determined by the last
+Field Type 100 that is paired with them by an item in Field Type 101.
 
-Field Type   | Contains References to types | Is Referenced by types
--------------|------------------------------|-----------------------
-131          | 16, 1000                     | 1040
-
-Field bytes | Number Format | Description
-------------|---------------|-------------
-8-11  | uint32 | Item 0 Reference to Field Type 1000
-12-15 | uint32 | Item 0 Reference to Field Type 16 string
-16-19 | uint16 | Item 0 Unknown
-.     |        |
-20-23 | uint32 | Item 1 Reference to Field Type 1000
-...   | ...    | ...
-
-
-#### Field Type 1000
-
-Data in this field pointed to from data
-in Field Type 100 (and other types?)  Is format fixed based on which data
-block?
-
-At least in one instance, it seems the last 24 bytes of this Field are not
-pointed to by other fields (??)
-
-Field Type   | Contains References to types | Is Referenced by types
--------------|------------------------------|-----------------------
-1000         | 16, 1000, 1020, 1030,        | 131, 1000, 1010, 1020, 1030, 1040
-
-
-### Other Fields
-
-Field Type   | Contains References to types | Is Referenced by types | Notes
--------------|------------------------------|------------------------|-------
-1004  | **None**       | **None**         |Root field of hierarchy.<br>payload is all 0's, otherwise normal header<br>NOP field?
-1007  | 16             | 1008             |
-1008  | 1007           | 1015             |
-1010  | 1000, 1040     | 1011             |
-1011  | 1010           | 1020             |
-1015  | 1008, 1024, 2  | **None**         |
-1020  | 1000, 1011     | 1000             |
-1022  | 16             | 1024             | No data items, only Field ID tags?<br>4 uints in payload, first 3 uints are Field ID tags.<br>Every 4 bytes is data item, last 4 bytes are not used (??)<br>Bytes 0-3 are uint32 Field ID tag
-1024  | 1022           | 1015             |
-1030  | 1000, 1040     | 1000             |
-1040  | 131, 1000      | 1010, 1030       |
+Field Types of Data Container fields are often but not limited to: 131, 1000,
+many numbers greater than 1000.
 
 
 ## List of Data Blocks
 
 ### Data Block 0
+Defines the data format for Collection "Overlay Header".
+
+Data Item labels in this Collection: OverlaySave, OverImgloc, OverImgbox,
+OverlaySaveArray, OverTextRun, OverTextRunArray, OverVolumeData, OverLasso.
+
 Field Types: 16, 100, 101, 102
 
     Strings (field_type=16):
@@ -416,9 +371,22 @@ Field Types: 16, 100, 101, 102
         steps, integden, pixcnt, maxpix, minpix, OverLasso, Overlay Header
 
 ### Data Block 1
+Actual data for Collection "Overlay Header".
+
+Data Item labels in this Collection: OverlaySave, OverImgloc, OverImgbox,
+OverlaySaveArray, OverTextRun, OverTextRunArray, OverVolumeData, OverLasso.
+
 Field Types: 1004
 
 ### Data Block 2
+Defines the data format for Collection "Q1 Description".
+
+Data Item labels in this Collection: Gel, Stripe, Lane, Lane Pointer, Trace,
+Tdiag, Band, Band Pointer, Lasso, Band Link, Imgloc, Imgbox, Band Pointer,
+Calcurve, Calcurve Pointer, Calband, Calintp, Crosstie, Crdloc, Stretcloc,
+MobilTie, AlleleSetLink, UserDetect, BackLog, Note, tag, taglist, StandardTie,
+MobilMap, DifDsp Layout, GaussPeak, GaussPeak Pointer.
+
 Field Types: 16, 100, 101, 102
 
     Strings (field_type=16):
@@ -464,6 +432,14 @@ Field Types: 16, 100, 101, 102
         GaussPeak, gspk pointer, GaussPeak Pointer, Q1 Description,
 
 ### Data Block 3
+Actual data for Collection "Q1 Description".
+
+Data Item labels in this Collection: Gel, Stripe, Lane, Lane Pointer, Trace,
+Tdiag, Band, Band Pointer, Lasso, Band Link, Imgloc, Imgbox, Band Pointer,
+Calcurve, Calcurve Pointer, Calband, Calintp, Crosstie, Crdloc, Stretcloc,
+MobilTie, AlleleSetLink, UserDetect, BackLog, Note, tag, taglist, StandardTie,
+MobilMap, DifDsp Layout, GaussPeak, GaussPeak Pointer.
+
 Field Types: 16, 1000
 
     Strings (field_type=16):
@@ -474,6 +450,18 @@ Field Types: 16, 1000
         <filename2>
 
 ### Data Block 4
+Defines the data format for Collection "DDB Description".
+
+Data Item labels in this Collection: tag, taglist, tag\_value, tagdef,
+tagdef\_list, band, lane, gel, gel pointer, sample, sample pointer, band\_type,
+band set, band set pointer, base, layouts, gel\_list\_layout,
+sample\_detail\_layout, sample\_list\_layout, geldet\_layout, bset\_layout, unit,
+unit pointer, reference lane, search, search pointer, search layout, lane index,
+pop link, pop link pointer, segment map, dbp\_pr\_coldata\_fields, pr layout,
+sum layout, imgloc, imgres, ddb position, dbp ptree layout, dbp pca layout,
+dbp popfrm layout, dbp layouts, irp layout, odrep layout, mobilmap, standardtie,
+DifDsp Layout, detect layout, userdetect, dentrace, imgbox, db\_mobil.
+
 Field Types: 16, 100, 101, 102
 
     Strings (field_type=16):
@@ -532,6 +520,18 @@ Field Types: 16, 100, 101, 102
         mobility, bst_idx, btp_code, db_mobil, DDB Description,
 
 ### Data Block 5
+Actual data for Collection "DDB Description".
+
+Data Item labels in this Collection: tag, taglist, tag\_value, tagdef,
+tagdef\_list, band, lane, gel, gel pointer, sample, sample pointer, band\_type,
+band set, band set pointer, base, layouts, gel\_list\_layout,
+sample\_detail\_layout, sample\_list\_layout, geldet\_layout, bset\_layout, unit,
+unit pointer, reference lane, search, search pointer, search layout, lane index,
+pop link, pop link pointer, segment map, dbp\_pr\_coldata\_fields, pr layout,
+sum layout, imgloc, imgres, ddb position, dbp ptree layout, dbp pca layout,
+dbp popfrm layout, dbp layouts, irp layout, odrep layout, mobilmap, standardtie,
+DifDsp Layout, detect layout, userdetect, dentrace, imgbox, db\_mobil.
+
 Field Types: 2, 16, 10007, 1008, 1015, 1022, 1024
 
     Strings (field_type=16):
@@ -545,6 +545,16 @@ Field Types: 2, 16, 10007, 1008, 1015, 1022, 1024
         Normalized Rf, Norm. Rf, NRf
 
 ### Data Block 6
+Defines the data format for Collection "Audit Trail".
+
+Data Item labels in this Collection: AuditTrail, AuditTrailEntry,
+AuditTrailEntryPtr, AuditTrailEntryPtrVector, AuditTrailStringPool,
+AuditTrailStringVector, Imgloc, Imgres, Imgbox, Crdloc, Crdres, Crdbox,
+Crdscale, ImgState, Savemap, CRealPoint, CRealSize, CRealDistance, CRealLine,
+CRealRect, CImagePoint, CImageSize, CImageDistance, CImageLine, CImageRect,
+CWindowPoint, CWindowSize, CWindowDistance, CWindowLine, CWindowRect,
+sm\_string, mm\_string.
+
 Field Types: 16, 100, 101, 102
 
     Strings (field_type=16):
@@ -567,6 +577,16 @@ Field Types: 16, 100, 101, 102
         m_length, sm_string, m_buffer, m_length, mm_string, Audit Trail,
 
 ### Data Block 7
+Actual data for Collection "Audit Trail".
+
+Data Item labels in this Collection: AuditTrail, AuditTrailEntry,
+AuditTrailEntryPtr, AuditTrailEntryPtrVector, AuditTrailStringPool,
+AuditTrailStringVector, Imgloc, Imgres, Imgbox, Crdloc, Crdres, Crdbox,
+Crdscale, ImgState, Savemap, CRealPoint, CRealSize, CRealDistance, CRealLine,
+CRealRect, CImagePoint, CImageSize, CImageDistance, CImageLine, CImageRect,
+CWindowPoint, CWindowSize, CWindowDistance, CWindowLine, CWindowRect,
+sm\_string, mm\_string.
+
 Field Types: 16, 131, 1000, 1010, 1011, 1020, 1030, 1040
 
     Strings (field_type=16):
@@ -582,6 +602,12 @@ Field Types: 16, 131, 1000, 1010, 1011, 1020, 1030, 1040
         Quantity One <Quanitity_One_version_string>
 
 ### Data Block 8
+Defines the data format for Collection "Scan Header".
+
+Data Item labels in this Collection: SCN, ScnCalibInfo, ScnFormula, ScnImgloc,
+ScnImgbox, ScnImgState, ScnQtyInfo, ScnCrdloc, ScnCrdres, ScnCrdbox, ScnParams,
+GrayResponseData.
+
 Field Types: 16, 100, 101, 102
 
     Text of and byte pointers to data in data block 9:
@@ -627,6 +653,12 @@ Field Types: 16, 100, 101, 102
         GR_Data, GrayResponseData, Scan Header
 
 ### Data Block 9
+Actual data for Collection "Scan Header".
+
+Data Item labels in this Collection: SCN, ScnCalibInfo, ScnFormula, ScnImgloc,
+ScnImgbox, ScnImgState, ScnQtyInfo, ScnCrdloc, ScnCrdres, ScnCrdbox, ScnParams,
+GrayResponseData.
+
 Field Types: 1000
 
     Data for:
