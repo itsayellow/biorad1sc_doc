@@ -33,7 +33,7 @@ File bytes | Numbers or ASCII | Description
 140-143    | Numbers | 0x03, 0x00, 0x00, 0x00 (uint32 0x00000003 = 3)
 144-147    | Numbers | 0x00, 0x00, 0x00, 0x00 (uint32 0x00000000 = 0)
 148-151    | uint32  | Start of Data Block 0 (byte offset from start of file)
-152-155    | uint32  | \<length of file - 4140\><br/>Number of bytes from start of Data Block 0 to End Of File.
+152-155    | uint32  | \<length of file after file header\><br/>Number of bytes from start of Data Block 0 to End Of File.
 156-159    | Numbers | 0x00, 0x00, 0x01, 0x00 (uint32 0x10000 = 4096)
 160-379    | Numbers | Data Fields Describing Data Blocks<br>11x 20-byte Fields
 380-4139   | Numbers | 3760 bytes of 0x00
@@ -42,14 +42,20 @@ File bytes | Numbers or ASCII | Description
 Within each Data Block are a series of Data Fields.
 (See Sections **Field Structure** and **Field Types** for descriptions)
 
-Fields can contain references to other fields, by using a uint32
-Data ID to refer to other fields.  Each referenceable field has its own unique
-Data ID recorded in its Field Header.
+Fields can contain references to other fields, by using a uint32 Data ID to
+refer to other fields.  Each referenceable field has its own unique Data ID
+recorded in its Field Header.
 
-After byte 4140, the entire file can be parsed as a series of contiguous
-Data Fields, with special parsing for Field Type 0 (End Of Data Block).
-If parsing the entire file at once, (and not each Data Block in isolation,)
-one can use the following method when encountering Field Type 0:
+The entire file can be parsed by reading a data format definition of a data
+Collection in each even-numbered Data Block, with the actual data in the
+following odd-numbered Data Block.  The first Field in each odd-numbered Data
+Block is always (often?) the root Field of a hierarchical set of data based on
+references to other Data Fields inside the same Data Block.
+
+Alternatively, after byte 4140, the entire file can be parsed as a series of
+contiguous Data Fields, with special parsing for Field Type 0 (End Of Data
+Block).  If parsing the entire file at once, (and not each Data Block in
+isolation,) one can use the following method when encountering Field Type 0:
 
 1. Parse the End Of Data Block Field
     * Field Type: 0
@@ -65,9 +71,8 @@ one can use the following method when encountering Field Type 0:
 
 ## Data Block Structure
 
-Note: Data Block 10, the "Image Data" Data Block, has no Data Block Header,
-no Data Block Footer, and no Data Fields.
-It only consists of image data.
+Note: Data Block 10, the "Image Data" Data Block, has no Data Block Header, no
+Data Block Footer, and no Data Fields.  It only consists of image data.
 
 All other Data Blocks follow the structure described below.
 
@@ -76,7 +81,7 @@ The start of each Data Block starts with 2x uint32 numbers.
 
 The first number is the length in bytes of this Data Block Header and all the
 following Data Block fields, (including the last field, Field Type 0.)
-It does **not** include the Data Block Footer.
+This length does **not** include the Data Block Footer.
 
 The second number is currently of unknown significance.  It has been observed
 to be one of: 1, 2, 4, 7, 8.
@@ -96,10 +101,10 @@ Field Header--the length of 8 bytes only allows for the length of
 a Field Header.
 
 ### Data Block Footer
-The data after this Field Type 0 until the end of the Data Block is considered
-the Data Block Footer.
+The data after this Field Type 0 until the end of the Data Block is the Data
+Block Footer.
 
-The footer is an summary of information about the fields seen in this
+The footer is a summary of information about the fields seen in this
 Data Block.  It is composed of groups of 14 bytes.  Each group summarizes
 information on a particular Field Type.  The groups are in the following format:
 
@@ -109,7 +114,7 @@ Bytes | Type   | Description
 2-5   | uint32 | Item 0 Num. Occurrences A
 6-9   | uint32 | Item 0 Num. Occurrences B
 10-13 | uint32 | Item 0 Unknown
-      |        |    
+.     |        |
 14-15 | uint16 | Item 1 Field Type
 ...   | ...    | ...
 
@@ -117,7 +122,7 @@ Bytes | Type   | Description
 of the Field Type in the Data Block.  They must refer to different
 types of occurrences, but in which way is unknown.
 
-The Unknown field may be the number of times a given Field Type has been
+The Unknown field may be (?) the number of times a given Field Type has been
 referenced in the Data Block.
 
 
@@ -167,23 +172,26 @@ usually 1000 and above.
 
 This cycle starts over when the next Field Type 102 is encountered.
 
-The Data Blocks come in paris.  Each even-numbered Data Block (starting with 0)
-contains field types 102,101, and 100.  These define the structure of the data
+The Data Blocks come in pairs.  Each even-numbered Data Block (starting with 0)
+contains field types 102, 101, and 100.  These define the structure of the data
 following in the next Data Block.  The following odd-numbered Data Block
 contains the actual data in field types numbered greater than 102.
 
 The exception to the pattern of pairs of Data Blocks is Data Block 10,
-containing image data.  It has no fields, no previous structure definition,
-and only contains raw image data.
+containing image data.  It has no fields, no previous structure definition, and
+only contains raw image data.
 
 ### NOP Fields
 
 Field Type   | Contains References to types | Is Referenced by types | Notes
 -------------|------------------------------|------------------------|-------
 0 | **None** | **None** | End Of Data Block<br>field\_id = 0<br>Data Block Footer and next Data Block Header follows.
-2 | **None** | 1015     | nop field? - payload is all 0's, otherwise normal header<br>field\_id = one of { 0x1099c4a8, 0x10b9d4a8, 0x10d9e4a8, 0x11e4a4a8, 0x128944a8, 0x144144a8}<br>field\_len = 208
+2 | **None** | 1015     | nop field? - payload is all 0's, otherwise normal header
 
 ### Data Block Info Fields
+
+Data Block Info Fields are special fields found only in the File Header.
+They define the location and size of the Data Blocks in the file.
 
 #### Structure
 All Data Block Info Fields have the following structure:
@@ -224,17 +232,18 @@ Field Type | Notes
 
 Field Type   | Contains References to types | Is Referenced by types | Notes
 -------------|------------------------------|------------------------|-------
-16 | **None** | 100, 101, 102, 131, 1000 | Previous data fields reference this via Field ID<br>Null-terminated string.  (0x00 is always last byte of payload)<br>Field ID: most significant 16-bits are usually one of: 0x0085, 0x0086, 0x0087, 0x0088, 0x008a, 0x014a, 0x014c, 0x014d, 0x0919, 0x091b, 0x1004, 0x1043, 0x1045, 0x107b, 0x107d, 0x1083, 0x1097, 0x1099, 0x10b9, 0x10d9, 0x11e4, 0x1289, 0x1441
+16 | **None** | 100, 101, 102, 131, 1000 | Previous data fields reference this via Field ID<br>Null-terminated string.  (0x00 is always last byte of payload)
 
 ### Data Description Fields
 
 #### Data Description Fields Hierarchy
 
-Field Types 102, 101, 100, (and 16) reference each other as follows:
+In even-numbered Data Blocks, Field Types 102, 101, 100, (and 16) reference
+each other as follows:
 
 ```
-102  ->  101 ->  100 ->  16
-    \->  16 \->  16
+102 -> 101 -> 100 -> 16
+    \-> 16 \-> 16
 ```
 
 
@@ -260,7 +269,8 @@ Field bytes | Number Format | Description
 
 Data Item definitions.
 
-Every 20 bytes is a data item until end of field.
+Every 20 bytes defines a data item (one following data container Field Type)
+until end of field.
 
 Field Type   | Contains References to types | Is Referenced by types
 -------------|------------------------------|-----------------------
@@ -275,7 +285,7 @@ Field bytes | Number Format | Description
 16-19   | uint32 | Item 0 Data Key: Reference to Field Type 100
 20-23   | uint16 | Item 0 Total bytes in data.
 24-27   | uint32 | Item 0 Label: Reference to Field Type 16 string
-.       |        |  
+.       |        |
 28-31   | uint16 | Item 1 Field Type containing data
 ...     | ...    | ...
 
@@ -289,7 +299,7 @@ Field Payload, until end of field.  Field ID references are to String Fields
 later in file.
 
 Num Words, Pointer Byte Offset, and Word Size refer to the payload of a
-future data container Field Type tied to this key in a Data Item 
+future data container Field Type tied to this key in a Data Item
 definition in Field Type 101.
 
 It is possible for total bytes in a payload of a corresponding data container
@@ -302,14 +312,13 @@ Data Type can be one of the following:
 Data Type code | Description
 ---------------|------------
 1  | byte
-2  | ASCII
+2  | byte / ASCII
 3  | u?int16
 4  | u?int16
 5  | u?int32
 6  | u?int32
 7  | u?int64
-9  | u?int64
-10 | 8-byte - float?
+9  | u?int32
 15 | uint32 Reference
 17 | uint32 Reference
 .  | .
@@ -339,7 +348,9 @@ Field bytes | Number Format | Description
 
 ### Data Container Fields
 
-Data Container fields have Field Types greater than 102.
+Data Container fields have Field Types greater than 102. (Note: this may not
+strictly be true. (?)  To be sure treat any Data Field in odd-numbered Data
+Blocks as Data Container fields.)
 
 Each of these contains data, the format of which is determined by the last
 Field Type 100 that is paired with them by an item in Field Type 101.
@@ -426,10 +437,8 @@ Possible Data Items and their Regions:
 
 
 ### Data Block 1
-Actual data for Collection "Overlay Header".
-
-Data Item labels in this Collection: OverlaySave, OverImgloc, OverImgbox,
-OverlaySaveArray, OverTextRun, OverTextRunArray, OverVolumeData, OverLasso.
+Actual data for Collection "Overlay Header".  See Data Block 0 for details on
+possible types of data.
 
 
 ### Data Block 2
@@ -731,13 +740,8 @@ Possible Data Items and their Regions:
 
 
 ### Data Block 3
-Actual data for Collection "Q1 Description".
-
-Data Item labels in this Collection: Gel, Stripe, Lane, Lane Pointer, Trace,
-Tdiag, Band, Band Pointer, Lasso, Band Link, Imgloc, Imgbox, Band Pointer,
-Calcurve, Calcurve Pointer, Calband, Calintp, Crosstie, Crdloc, Stretcloc,
-MobilTie, AlleleSetLink, UserDetect, BackLog, Note, tag, taglist, StandardTie,
-MobilMap, DifDsp Layout, GaussPeak, GaussPeak Pointer.
+Actual data for Collection "Q1 Description".  See Data Block 2 for details on
+possible types of data.
 
 
 ### Data Block 4
@@ -1112,17 +1116,8 @@ Possible Data Items and their Regions:
 
 
 ### Data Block 5
-Actual data for Collection "DDB Description".
-
-Data Item labels in this Collection: tag, taglist, tag\_value, tagdef,
-tagdef\_list, band, lane, gel, gel pointer, sample, sample pointer, band\_type,
-band set, band set pointer, base, layouts, gel\_list\_layout,
-sample\_detail\_layout, sample\_list\_layout, geldet\_layout, bset\_layout, unit,
-unit pointer, reference lane, search, search pointer, search layout, lane index,
-pop link, pop link pointer, segment map, dbp\_pr\_coldata\_fields, pr layout,
-sum layout, imgloc, imgres, ddb position, dbp ptree layout, dbp pca layout,
-dbp popfrm layout, dbp layouts, irp layout, odrep layout, mobilmap, standardtie,
-DifDsp Layout, detect layout, userdetect, dentrace, imgbox, db\_mobil.
+Actual data for Collection "DDB Description".  See Data Block 4 for details on
+possible types of data.
 
 
 ### Data Block 6
@@ -1256,15 +1251,8 @@ Possible Data Items and their Regions:
 
 
 ### Data Block 7
-Actual data for Collection "Audit Trail".
-
-Data Item labels in this Collection: AuditTrail, AuditTrailEntry,
-AuditTrailEntryPtr, AuditTrailEntryPtrVector, AuditTrailStringPool,
-AuditTrailStringVector, Imgloc, Imgres, Imgbox, Crdloc, Crdres, Crdbox,
-Crdscale, ImgState, Savemap, CRealPoint, CRealSize, CRealDistance, CRealLine,
-CRealRect, CImagePoint, CImageSize, CImageDistance, CImageLine, CImageRect,
-CWindowPoint, CWindowSize, CWindowDistance, CWindowLine, CWindowRect,
-sm\_string, mm\_string.
+Actual data for Collection "Audit Trail".  See Data Block 6 for details on
+possible types of data.
 
 
 ### Data Block 8
@@ -1335,7 +1323,7 @@ Possible Data Items and their Regions:
 * ScnImgloc
     * x
     * y
-* ScnImgbox 
+* ScnImgbox
     * first
     * last
 * ScnImgState
@@ -1413,11 +1401,8 @@ Possible Data Items and their Regions:
 
 
 ### Data Block 9
-Actual data for Collection "Scan Header".
-
-Data Item labels in this Collection: SCN, ScnCalibInfo, ScnFormula, ScnImgloc,
-ScnImgbox, ScnImgState, ScnQtyInfo, ScnCrdloc, ScnCrdres, ScnCrdbox, ScnParams,
-GrayResponseData.
+Actual data for Collection "Scan Header".  See Data Block 8 for details on
+possible types of data.
 
 
 ### Data Block 10
