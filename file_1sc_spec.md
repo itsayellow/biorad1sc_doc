@@ -353,22 +353,77 @@ many numbers greater than 1000.
 ### Data Block 0
 Defines the data format for Collection "Overlay Header".
 
-Data Item labels in this Collection: OverlaySave, OverImgloc, OverImgbox,
-OverlaySaveArray, OverTextRun, OverTextRunArray, OverVolumeData, OverLasso.
-
 Field Types: 16, 100, 101, 102
 
-    Strings (field_type=16):
-        eType, color, where, parentIndex, start, end, startArrow, endArrow,
-        rotationAngle, orientation, runs, alignment, bkgColor, bTransparentBkg,
-        volumeDataPtr, lassoPtr, OverlaySave, x, y, OverImgloc, first, last,
-        OverImgbox, array, avail, used, regressionType, OverlaySaveArray,
-        string, font, fontFace, fontSize, color, scriptStyle, isBold, isItalic,
-        isUnderlined, OverTextRun, array, avail, used, OverTextRunArray,
-        sumTotal, sumBorders, numPixels, numPixelsBorders, minPixelValue,
-        maxPixelValue, stdDeviation, concentration, type, hasUserLabel, string,
-        overlaySavePtr, OverVolumeData, start, bounds, nsteps, swused, swavail,
-        steps, integden, pixcnt, maxpix, minpix, OverLasso, Overlay Header
+Possible Data Items and their Regions:
+
+* OverlaySave
+    * eType
+    * color
+    * where
+    * parentIndex
+    * start
+    * end
+    * startArrow
+    * endArrow
+    * rotationAngle
+    * orientation
+    * runs
+    * alignment
+    * bkgColor
+    * bTransparentBkg
+    * volumeDataPtr
+    * lassoPtr
+* OverImgloc
+    * x
+    * y
+* OverImgbox
+    * first
+    * last
+* OverlaySaveArray
+    * array
+    * avail
+    * used
+    * regressionType
+* OverTextRun
+    * string
+    * font
+    * fontFace
+    * fontSize
+    * color
+    * scriptStyle
+    * isBold
+    * isItalic
+    * isUnderlined
+* OverTextRunArray
+    * array
+    * avail
+    * used
+* OverVolumeData
+    * sumTotal
+    * sumBorders
+    * numPixels
+    * numPixelsBorders
+    * minPixelValue
+    * maxPixelValue
+    * stdDeviation
+    * concentration
+    * type
+    * hasUserLabel
+    * string
+    * overlaySavePtr
+* OverLasso
+    * start
+    * bounds
+    * nsteps
+    * swused
+    * swavail
+    * steps
+    * integden
+    * pixcnt
+    * maxpix
+    * minpix
+
 
 ### Data Block 1
 Actual data for Collection "Overlay Header".
@@ -376,60 +431,304 @@ Actual data for Collection "Overlay Header".
 Data Item labels in this Collection: OverlaySave, OverImgloc, OverImgbox,
 OverlaySaveArray, OverTextRun, OverTextRunArray, OverVolumeData, OverLasso.
 
-Field Types: 1004
 
 ### Data Block 2
 Defines the data format for Collection "Q1 Description".
 
-Data Item labels in this Collection: Gel, Stripe, Lane, Lane Pointer, Trace,
-Tdiag, Band, Band Pointer, Lasso, Band Link, Imgloc, Imgbox, Band Pointer,
-Calcurve, Calcurve Pointer, Calband, Calintp, Crosstie, Crdloc, Stretcloc,
-MobilTie, AlleleSetLink, UserDetect, BackLog, Note, tag, taglist, StandardTie,
-MobilMap, DifDsp Layout, GaussPeak, GaussPeak Pointer.
-
 Field Types: 16, 100, 101, 102
 
-    Strings (field_type=16):
-        file_ver, stripe, notes, nt_used, nt_avail, stdname, stdunits, stdtype,
-        blotrows, blotcols, smplwidth, bkgden, bkgtype, calcflags, nbacklog,
-        backlog, tdisp_md, lbkg_md, lbkg_disk, lbkg_window, sensitivity,
-        min_peak, noise_filter, shoulder_sens, size_scale, normalize,
-        use_bandlimit, shadow, lbkg_flags, bandlimit, tolerance, match_flags,
-        qcused, qcavail, calcurves, qtyunits, vntr_ambig, flank, repeat,
-        vntr_flags, sim_flags, sim_tolerance, sim_required, asl_used, asl_avail,
-        as_links, allele_set_code, db_name, db_path, db_filename, db_id,
-        mod_time, taglist, db_gelnum, db_unit, mobilmap, db_update, db_type,
-        adb_gelnum, adb_unit, adb_taglist, flags, bstyle, difdsp, lanes, lnused,
-        lnavail, nxties, nyties, nties, ties, Gel, dens, denused, denavail,
-        bkgbox, minimum, average, maximum, Stripe, name, nyties, crossings,
-        segtrace, segused, segavail, bands, bandused, bandavail, gpk, gaussused,
-        gaussavail, dentrace, stdlanenum, right_stdlanenum, right_frac,
-        smplwidth, lanenum, flags, calcflags, sumden, sumd_bands, lbkg_disk,
-        lbkg_window, lbkg_flags, dtparm, db_sample, db_band_set, db_standard,
-        dmt_used, dmt_avail, db_mobil, db_bset_flags, adb_band_set, adb_sample,
-        lbkg_md, Lane, lane pointer, Lane Pointer, dvused, dvavail, dvals,
-        srcstrace, navg, min, max, avg, bkdvals, gaussdvused, gaussdvavail,
-        gaussdvals, Trace, diag, xaxis, yaxis, data, srctrace, dsttrace,
-        lanenum, datawidth, firstden, max, Tdiag, name, sumden, rf, stdval,
-        quality, norm_den, calnum, qty, this, first, peak, last, maxpix, minpix,
-        lasso, db_btp_code, db_btp_flags, adb_btp_code, adb_btp_flags,
-        stdsource, flags, qtysource, Band, band pointer, Band Pointer, start,
-        bounds, nsteps, swused, swavail, steps, integden, pixcnt, maxpix,
-        minpix, Lasso, lanenum, Bandnum, Band Link, x, y, Imgloc, first, last,
-        Imgbox, unowned band pointer, Band Pointer, name, desc, from, cbused,
-        cbavail, calbands, ninterp, intps, slope, intercept, corr_coef, calnum,
-        mcode, model, extrapolate, status, type, named, Calcurve,
-        calcurve pointer, Calcurve Pointer, band, measure, qty, reldev,
-        dilution, dilution_txt, qtysource, relstat, Calband, measure, qty,
-        Calintp, left, ax, Crosstie, x, y, Crdloc, a, r, Stretcloc, rf,
-        mobility, bst_idx, btp_code, MobilTie, name, id_safety, allele_set,
-        als_item, AlleleSetLink, sensitivity, min_peak, noise_filter,
-        shoulder_sens, size_scale, normalize, use_bandlimit, shadow, bandlimit,
-        UserDetect, type, minden, maxden, BackLog, head, tail, text_start, text,
-        flags, Note, pr_code, vl_code, tag, used, avail, tags, taglist, std,
-        mobility, StandardTie, lanenum, used, stdties, MobilMap, mode, ratio,
-        differ, DifDsp Layout, center, sigma, height, gauerr, lolim, hilim,
-        GaussPeak, gspk pointer, GaussPeak Pointer, Q1 Description,
+Possible Data Items and their Regions:
+
+* Gel
+    * file\_ver
+    * stripe
+    * notes
+    * nt\_used
+    * nt\_avail
+    * stdname
+    * stdunits
+    * stdtype
+    * blotrows
+    * blotcols
+    * smplwidth
+    * bkgden
+    * bkgtype
+    * calcflags
+    * nbacklog
+    * backlog
+    * tdisp\_md
+    * lbkg\_md
+    * lbkg\_disk
+    * lbkg\_window
+    * sensitivity
+    * min\_peak
+    * noise\_filter
+    * shoulder\_sens
+    * size\_scale
+    * normalize
+    * use\_bandlimit
+    * shadow
+    * lbkg\_flags
+    * bandlimit
+    * tolerance
+    * match\_flags
+    * qcused
+    * qcavail
+    * calcurves
+    * qtyunits
+    * vntr\_ambig
+    * flank
+    * repeat
+    * vntr\_flags
+    * sim\_flags
+    * sim\_tolerance
+    * sim\_required
+    * asl\_used
+    * asl\_avail
+    * as\_links
+    * allele\_set\_code
+    * db\_name
+    * db\_path
+    * db\_filename
+    * db\_id
+    * mod\_time
+    * taglist
+    * db\_gelnum
+    * db\_unit
+    * mobilmap
+    * db\_update
+    * db\_type
+    * adb\_gelnum
+    * adb\_unit
+    * adb\_taglist
+    * flags
+    * bstyle
+    * difdsp
+    * lanes
+    * lnused
+    * lnavail
+    * nxties
+    * nyties
+    * nties
+    * ties
+* Stripe
+    * dens
+    * denused
+    * denavail
+    * bkgbox
+    * minimum
+    * average
+    * maximum
+* Lane
+    * name
+    * nyties
+    * crossings
+    * segtrace
+    * segused
+    * segavail
+    * bands
+    * bandused
+    * bandavail
+    * gpk
+    * gaussused
+    * gaussavail
+    * dentrace
+    * stdlanenum
+    * right\_stdlanenum
+    * right\_frac
+    * smplwidth
+    * lanenum
+    * flags
+    * calcflags
+    * sumden
+    * sumd\_bands
+    * lbkg\_disk
+    * lbkg\_window
+    * lbkg\_flags
+    * dtparm
+    * db\_sample
+    * db\_band\_set
+    * db\_standard
+    * dmt\_used
+    * dmt\_avail
+    * db\_mobil
+    * db\_bset\_flags
+    * adb\_band\_set
+    * adb\_sample
+    * lbkg\_md
+* Lane Pointer
+    * lane pointer
+* Trace
+    * dvused
+    * dvavail
+    * dvals
+    * srcstrace
+    * navg
+    * min
+    * max
+    * avg
+    * bkdvals
+    * gaussdvused
+    * gaussdvavail
+    * gaussdvals
+* Tdiag
+    * diag
+    * xaxis
+    * yaxis
+    * data
+    * srctrace
+    * dsttrace
+    * lanenum
+    * datawidth
+    * firstden
+    * max
+* Band
+    * name
+    * sumden
+    * rf
+    * stdval
+    * quality
+    * norm\_den
+    * calnum
+    * qty
+    * this
+    * first
+    * peak
+    * last
+    * maxpix
+    * minpix
+    * lasso
+    * db\_btp\_code
+    * db\_btp\_flags
+    * adb\_btp\_code
+    * adb\_btp\_flags
+    * stdsource
+    * flags
+    * qtysource
+* Band Pointer
+    * band pointer
+* Lasso
+    * start
+    * bounds
+    * nsteps
+    * swused
+    * swavail
+    * steps
+    * integden
+    * pixcnt
+    * maxpix
+    * minpix
+* Band Link
+    * lanenum
+    * Bandnum
+* Imgloc
+    * x
+    * y
+* Imgbox
+    * first
+    * last
+* Band Pointer
+    * unowned band pointer
+* Calcurve
+    * name
+    * desc
+    * from
+    * cbused
+    * cbavail
+    * calbands
+    * ninterp
+    * intps
+    * slope
+    * intercept
+    * corr\_coef
+    * calnum
+    * mcode
+    * model
+    * extrapolate
+    * status
+    * type
+    * named
+* Calcurve Pointer
+    * calcurve pointer
+* Calband
+    * band
+    * measure
+    * qty
+    * reldev
+    * dilution
+    * dilution\_txt
+    * qtysource
+    * relstat
+* Calintp
+    * measure
+    * qty
+* Crosstie
+    * left
+    * ax
+* Crdloc
+    * x
+    * y
+* Stretcloc
+    * a
+    * r
+* MobilTie
+    * rf
+    * mobility
+    * bst\_idx
+    * btp\_code
+* AlleleSetLink
+    * name
+    * id\_safety
+    * allele\_set
+    * als\_item
+* UserDetect
+    * sensitivity
+    * min\_peak
+    * noise\_filter
+    * shoulder\_sens
+    * size\_scale
+    * normalize
+    * use\_bandlimit
+    * shadow
+    * bandlimit
+* BackLog
+    * type
+    * minden
+    * maxden
+* Note
+    * head
+    * tail
+    * text\_start
+    * text
+    * flags
+* tag
+    * pr\_code
+    * vl\_code
+* taglist
+    * used
+    * avail
+    * tags
+* StandardTie
+    * std
+    * mobility
+* MobilMap
+    * lanenum
+    * used
+    * stdties
+* DifDsp Layout
+    * mode
+    * ratio
+    * differ
+* GaussPeak
+    * center
+    * sigma
+    * height
+    * gauerr
+    * lolim
+    * hilim
+* GaussPeak Pointer
+    * gspk pointer
+
 
 ### Data Block 3
 Actual data for Collection "Q1 Description".
@@ -440,14 +739,6 @@ Calcurve, Calcurve Pointer, Calband, Calintp, Crosstie, Crdloc, Stretcloc,
 MobilTie, AlleleSetLink, UserDetect, BackLog, Note, tag, taglist, StandardTie,
 MobilMap, DifDsp Layout, GaussPeak, GaussPeak Pointer.
 
-Field Types: 16, 1000
-
-    Strings (field_type=16):
-        Mol. Wt.
-        KDa
-        <filename1>
-        <full_path_directory>
-        <filename2>
 
 ### Data Block 4
 Defines the data format for Collection "DDB Description".
