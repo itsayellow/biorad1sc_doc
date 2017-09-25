@@ -321,7 +321,7 @@ Data Type code | Description
 9  | u?int32
 15 | uint32 Reference
 17 | uint32 Reference
-.  | .
+.  |
 > 17 | ???
 
 Field Type   | Contains References to types | Is Referenced by types
