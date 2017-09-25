@@ -452,72 +452,373 @@ Field Types: 16, 1000
 ### Data Block 4
 Defines the data format for Collection "DDB Description".
 
-Data Item labels in this Collection: tag, taglist, tag\_value, tagdef,
-tagdef\_list, band, lane, gel, gel pointer, sample, sample pointer, band\_type,
-band set, band set pointer, base, layouts, gel\_list\_layout,
-sample\_detail\_layout, sample\_list\_layout, geldet\_layout, bset\_layout, unit,
-unit pointer, reference lane, search, search pointer, search layout, lane index,
-pop link, pop link pointer, segment map, dbp\_pr\_coldata\_fields, pr layout,
-sum layout, imgloc, imgres, ddb position, dbp ptree layout, dbp pca layout,
-dbp popfrm layout, dbp layouts, irp layout, odrep layout, mobilmap, standardtie,
-DifDsp Layout, detect layout, userdetect, dentrace, imgbox, db\_mobil.
-
 Field Types: 16, 100, 101, 102
 
-    Strings (field_type=16):
-        pr_code, vl_code, tag, used, avail, tags, taglist, references, decode,
-        tag_value, prompt, references, used, avail, values, tagdef, used, avail,
-        tagdefs, tagdef_list, quality, std_value, norm_den, btp_code, flags,
-        peak, band, bands_used, bands_avail, bands, sample_code, bst_code,
-        flags, dentrace, dmt_used, dmt_avail, db_mobil, lane, path, filename,
-        id, name, description, cre_time, mod_time, update, lanes_used,
-        lanes_avail, lanes, taglist, mobilmap, lanewidth, detection, unit, gidx,
-        stdtype, lbkg_md, lbkg_disk, lbkg_status, layout, gel, gel pointer,
-        gel pointer, name, cre_time, description, taglist, idx_used, idx_avail,
-        indices, flags, sample, sample pointer, sample pointer, name, btp_code,
-        index, gidx, lanenum, low_std, ideal_std, high_std, low_sf, ideal_sf,
-        high_sf, band_type, name, cre_time, mod_time, idx_used, idx_avail,
-        index, comment, id, tolerance, bst_idx, bt_used, bt_avail, bt_valid,
-        band_types, taglist, tagdefs, unit, norm_btp_code, gidx, lanenum,
-        method, modified, code_style, display_names, report_names, type,
-        unit_change, model_vers, band set, band set pointer, band set pointer,
-        name, description, cre_time, mod_time, id, pathname, gels_used,
-        gels_avail, gels, gel_sorting, gel_sort_tag, gel_count, gtpl_used,
-        gtpl_avail, gtpl_count, gel_templates, smpl_used, smpl_avail, samples,
-        sample_sorting, sample_count, bst_used, bst_avail, band_sets,
-        bst_sorting, bst_count, srch_used, srch_avail, srch_count, searches,
-        tagdef_list, layouts, units_used, units_avail, units, pop_used,
-        pop_avail, pop_count, pop_links, seg_map, db_type, base, sum, gel_list,
-        sample_detail, sample_list, gel_detail, bset, srch, odrep, dbp, difdsp,
-        detect, layouts, sel_name, sel_date_from, sel_date_to, sel_tag1,
-        sel_tag2, sort_by, lst_pr_code, dbpos, gel_list_layout, tagdefs, dbpos,
-        sample_detail_layout, sel_tagdef1, sel_tagdef2, lst_tagdef1,
-        lst_tagdef2, sort_by, dbpos, sample_list_layout, gel_tagdef1,
-        gel_tagdef2, sample_tagdef1, sample_tagdef2, sort_by, flags, dbpos,
-        geldet_layout, unit, tagdefs, default_bset, lg_dbpos, sm_dbpos,
-        bset_layout, longname, shortname, unitname, interp, order, flags, unit,
-        unit pointer, unit pointer, gidx, lanenum, bst_idx, reference lane,
-        name, smplname, date_from, date_to, taglist, tagdefs, match, ref_smpl,
-        match_percent, nlanes, ref_lanes, srchnum, search_by, compare,
-        sim_method, weighting, edited, include, useGaussModelsIfPresent, search,
-        search pointer, search pointer, match_percent, srchnum, tagdefs,
-        sim_method, include, weighting, dbpos, search layout, gidx, lanenum,
-        bst_idx, lane index, name, plidx, dir_block, data_block, pop link,
-        poplink pointer, pop link pointer, first, nsegs, segs, segment map,
-        type, value, dbp_pr_coldata_fields, ref_lnum, cols_used, coldata, flags,
-        font, pr layout, style, lg_dbpos, sm_dbpos, sum layout, x, y, imgloc,
-        x, y, imgres, loc, size, flags, ddb position, dp_pos, method,
-        dbp ptree layout, dp_pos, dbp pca layout, dp_pos, dbp popfrm layout,
-        popfrm, pr, ptree, pca, irp, dbp layouts, cols_used, coldata, ref,
-        order, active, style, pg_layout, show_btypes, ruler, ref_lnum,
-        irp layout, od_types, odrep layout, lanenum, used, stdties, mobilmap,
-        std, mobility, standardtie, mode, ratio, differ, DifDsp Layout, userdet,
-        screenloc, lane_width, manual, style, valid, detect layout, sensitivity,
-        min_peak, noise_filter, shoulder_sens, size_scale, normalize,
-        use_bandlimit, shadow, bandlimit, userdetect, dvused, dvavail, dvals,
-        srctrace, navg, min, max, avg, bkdvals, gaussdvused, gaussdvavail,
-        gaussdvals, gaussmax, gaussmin, dentrace, first, last, imgbox, rf,
-        mobility, bst_idx, btp_code, db_mobil, DDB Description,
+Possible Data Items and their Regions:
+
+* tag
+    * pr\_code
+    * vl\_code
+* taglist
+    * used
+    * avail
+    * tags
+* tag\_value
+    * references
+    * decode
+* tagdef
+    * prompt
+    * references
+    * used
+    * avail
+    * values
+* tagdef\_list
+    * used
+    * avail
+    * tagdefs
+* band
+    * quality
+    * std\_value
+    * norm\_den
+    * btp\_code
+    * flags
+    * peak
+* lane
+    * bands\_used
+    * bands\_avail
+    * bands
+    * sample\_code
+    * bst\_code
+    * flags
+    * dentrace
+    * dmt\_used
+    * dmt\_avail
+    * db\_mobil
+* gel
+    * path
+    * filename
+    * id
+    * name
+    * description
+    * cre\_time
+    * mod\_time
+    * update
+    * lanes\_used
+    * lanes\_avail
+    * lanes
+    * taglist
+    * mobilmap
+    * lanewidth
+    * detection
+    * unit
+    * gidx
+    * stdtype
+    * lbkg\_md
+    * lbkg\_disk
+    * lbkg\_status
+    * layout
+* gel pointer
+    * gel pointer
+* sample
+    * name
+    * cre\_time
+    * description
+    * taglist
+    * idx\_used
+    * idx\_avail
+    * indices
+    * flags
+* sample pointer
+    * sample pointer
+* band\_type
+    * name
+    * btp\_code
+    * index
+    * gidx
+    * lanenum
+    * low\_std
+    * ideal\_std
+    * high\_std
+    * low\_sf
+    * ideal\_sf
+    * high\_sf
+* band set
+    * name
+    * cre\_time
+    * mod\_time
+    * idx\_used
+    * idx\_avail
+    * index
+    * comment
+    * id
+    * tolerance
+    * bst\_idx
+    * bt\_used
+    * bt\_avail
+    * bt\_valid
+    * band\_types
+    * taglist
+    * tagdefs
+    * unit
+    * norm\_btp\_code
+    * gidx
+    * lanenum
+    * method
+    * modified
+    * code\_style
+    * display\_names
+    * report\_names
+    * type
+    * unit\_change
+    * model\_vers
+* band set pointer
+    * band set pointer
+* base
+    * name
+    * description
+    * cre\_time
+    * mod\_time
+    * id
+    * pathname
+    * gels\_used
+    * gels\_avail
+    * gels
+    * gel\_sorting
+    * gel\_sort\_tag
+    * gel\_count
+    * gtpl\_used
+    * gtpl\_avail
+    * gtpl\_count
+    * gel\_templates
+    * smpl\_used
+    * smpl\_avail
+    * samples
+    * sample\_sorting
+    * sample\_count
+    * bst\_used
+    * bst\_avail
+    * band\_sets
+    * bst\_sorting
+    * bst\_count
+    * srch\_used
+    * srch\_avail
+    * srch\_count
+    * searches
+    * tagdef\_list
+    * layouts
+    * units\_used
+    * units\_avail
+    * units
+    * pop\_used
+    * pop\_avail
+    * pop\_count
+    * pop\_links
+    * seg\_map
+    * db\_type
+* layouts
+    * sum
+    * gel\_list
+    * sample\_detail
+    * sample\_list
+    * gel\_detail
+    * bset
+    * srch
+    * odrep
+    * dbp
+    * difdsp
+    * detect
+* gel\_list\_layout
+    * sel\_name
+    * sel\_date\_from
+    * sel\_date\_to
+    * sel\_tag1
+    * sel\_tag2
+    * sort\_by
+    * lst\_pr\_code
+    * dbpos
+* sample\_detail\_layout
+    * tagdefs
+    * dbpos
+* sample\_list\_layout
+    * sel\_tagdef1
+    * sel\_tagdef2
+    * lst\_tagdef1
+    * lst\_tagdef2
+    * sort\_by
+    * dbpos
+* geldet\_layout
+    * gel\_tagdef1
+    * gel\_tagdef2
+    * sample\_tagdef1
+    * sample\_tagdef2
+    * sort\_by
+    * flags
+    * dbpos
+* bset\_layout
+    * unit
+    * tagdefs
+    * default\_bset
+    * lg\_dbpos
+    * sm\_dbpos
+* unit
+    * longname
+    * shortname
+    * unitname
+    * interp
+    * order
+    * flags
+* unit pointer
+    * unit pointer
+* reference lane
+    * gidx
+    * lanenum
+    * bst\_idx
+* search
+    * name
+    * smplname
+    * date\_from
+    * date\_to
+    * taglist
+    * tagdefs
+    * match
+    * ref\_smpl
+    * match\_percent
+    * nlanes
+    * ref\_lanes
+    * srchnum
+    * search\_by
+    * compare
+    * sim\_method
+    * weighting
+    * edited
+    * include
+    * useGaussModelsIfPresent
+* search pointer
+    * search pointer
+* search layout
+    * match\_percent
+    * srchnum
+    * tagdefs
+    * sim\_method
+    * include
+    * weighting
+    * dbpos
+* lane index
+    * gidx
+    * lanenum
+    * bst\_idx
+* pop link
+    * name
+    * plidx
+    * dir\_block
+    * data\_block
+* pop link pointer
+    * poplink pointer
+* segment map
+    * first
+    * nsegs
+    * segs
+* dbp\_pr\_coldata\_fields
+    * type
+    * value
+* pr layout
+    * ref\_lnum
+    * cols\_used
+    * coldata
+    * flags
+    * font
+* sum layout
+    * style
+    * lg\_dbpos
+    * sm\_dbpos
+* imgloc
+    * x
+    * y
+* imgres
+    * x
+    * y
+* ddb position
+    * loc
+    * size
+    * flags
+* dbp ptree layout
+    * dp\_pos
+    * method
+* dbp pca layout
+    * dp\_pos
+* dbp popfrm layout
+    * dp\_pos
+* dbp layouts
+    * popfrm
+    * pr
+    * ptree
+    * pca
+    * irp
+* irp layout
+    * cols\_used
+    * coldata
+    * ref
+    * order
+    * active
+    * style
+    * pg\_layout
+    * show\_btypes
+    * ruler
+    * ref\_lnum
+* odrep layout
+    * od\_types
+* mobilmap
+    * lanenum
+    * used
+    * stdties
+* standardtie
+    * std
+    * mobility
+* DifDsp Layout
+    * mode
+    * ratio
+    * differ
+* detect layout
+    * userdet
+    * screenloc
+    * lane\_width
+    * manual
+    * style
+    * valid
+* userdetect
+    * sensitivity
+    * min\_peak
+    * noise\_filter
+    * shoulder\_sens
+    * size\_scale
+    * normalize
+    * use\_bandlimit
+    * shadow
+    * bandlimit
+* dentrace
+    * dvused
+    * dvavail
+    * dvals
+    * srctrace
+    * navg
+    * min
+    * max
+    * avg
+    * bkdvals
+    * gaussdvused
+    * gaussdvavail
+    * gaussdvals
+    * gaussmax
+    * gaussmin
+* imgbox
+    * first
+    * last
+* db\_mobil.
+    * rf
+    * mobility
+    * bst\_idx
+    * btp\_code
+
 
 ### Data Block 5
 Actual data for Collection "DDB Description".
@@ -532,49 +833,136 @@ sum layout, imgloc, imgres, ddb position, dbp ptree layout, dbp pca layout,
 dbp popfrm layout, dbp layouts, irp layout, odrep layout, mobilmap, standardtie,
 DifDsp Layout, detect layout, userdetect, dentrace, imgbox, db\_mobil.
 
-Field Types: 2, 16, 10007, 1008, 1015, 1022, 1024
-
-    Strings (field_type=16):
-        <full_path_directory>
-        <filename>
-        <filename_without_extension> (Raw 1-D I
-        Base Pairs, Base Pairs, BP,
-        Isoelectric Point, Iso. Pt., pI,
-        Isoelectric Point, Iso. Pt., pI
-        Molecular Weight, Mol. Wt., KDa
-        Normalized Rf, Norm. Rf, NRf
 
 ### Data Block 6
 Defines the data format for Collection "Audit Trail".
 
-Data Item labels in this Collection: AuditTrail, AuditTrailEntry,
-AuditTrailEntryPtr, AuditTrailEntryPtrVector, AuditTrailStringPool,
-AuditTrailStringVector, Imgloc, Imgres, Imgbox, Crdloc, Crdres, Crdbox,
-Crdscale, ImgState, Savemap, CRealPoint, CRealSize, CRealDistance, CRealLine,
-CRealRect, CImagePoint, CImageSize, CImageDistance, CImageLine, CImageRect,
-CWindowPoint, CWindowSize, CWindowDistance, CWindowLine, CWindowRect,
-sm\_string, mm\_string.
-
 Field Types: 16, 100, 101, 102
 
-    Strings (field_type=16):
-        m_entries, m_userPool, m_descPool, m_appPool, AuditTrail, m_time,
-        m_user, m_description, m_details, m_detailX1, m_detailY1, m_detailX2,
-        m_detailY2, m_version, m_comment, m_filter, m_locked, AuditTrailEntry,
-        AuditTrailEntryPtr, AuditTrailEntryPtr, m_mmvectorList, m_mmvectorUsed,
-        m_mmvectorAvail, AuditTrailEntryPtrVector, m_pool, AuditTrailStringPool,
-        m_mmvectorList, m_mmvectorUsed, m_mmvectorAvail, AuditTrailStringVector,
-        x, y, Imgloc, x, y, Imgres, first, last, Imgbox, x, y, Crdloc, x, y,
-        Crdres, first, last, Crdbox, x, y, Crdscale, mincon, maxcon, in, out,
-        low_frac, high_frac, state, gamma, aspect, ImgState, center, scale,
-        Savemap, m_x, m_y, CRealPoint, m_width, m_height, CRealSize, m_x, m_y,
-        CRealDistance, m_start, m_end, CRealLine, m_top, m_left, m_right,
-        m_bottom, CRealRect, m_x, m_y, CImagePoint, m_width, m_height,
-        CImageSize, m_x, m_y, CImageDistance, m_start, m_end, CImageLine, m_top,
-        m_left, m_right, m_bottom, CImageRect, m_x, m_y, CWindowPoint, m_width,
-        m_height, CWindowSize, m_x, m_y, CWindowDistance, m_start, m_end,
-        CWindowLine, m_top, m_left, m_right, m_bottom, CWindowRect, m_buffer,
-        m_length, sm_string, m_buffer, m_length, mm_string, Audit Trail,
+Possible Data Items and their Regions:
+
+* AuditTrail
+    * m\_entries
+    * m\_userPool
+    * m\_descPool
+    * m\_appPool
+* AuditTrailEntry
+    * m\_time
+    * m\_user
+    * m\_description
+    * m\_details
+    * m\_detailX1
+    * m\_detailY1
+    * m\_detailX2
+    * m\_detailY2
+    * m\_version
+    * m\_comment
+    * m\_filter
+    * m\_locked
+* AuditTrailEntryPtr
+    * AuditTrailEntryPtr
+* AuditTrailEntryPtrVector
+    * m\_mmvectorList
+    * m\_mmvectorUsed
+    * m\_mmvectorAvail
+* AuditTrailStringPool
+    * m\_pool
+* AuditTrailStringVector
+    * m\_mmvectorList
+    * m\_mmvectorUsed
+    * m\_mmvectorAvail
+* Imgloc
+    * x
+    * y
+* Imgres
+    * x
+    * y
+* Imgbox
+    * first
+    * last
+* Crdloc
+    * x
+    * y
+* Crdres
+    * x
+    * y
+* Crdbox
+    * first
+    * last
+* Crdscale
+    * x
+    * y
+* ImgState
+    * mincon
+    * maxcon
+    * in
+    * out
+    * low\_frac
+    * high\_frac
+    * state
+    * gamma
+    * aspect
+* Savemap
+    * center
+    * scale
+* CRealPoint
+    * m\_x
+    * m\_y
+* CRealSize
+    * m\_width
+    * m\_height
+* CRealDistance
+    * m\_x
+    * m\_y
+* CRealLine
+    * m\_start
+    * m\_end
+* CRealRect
+    * m\_top
+    * m\_left
+    * m\_right
+    * m\_bottom
+* CImagePoint
+    * m\_x
+    * m\_y
+* CImageSize
+    * m\_width
+    * m\_height
+* CImageDistance
+    * m\_x
+    * m\_y
+* CImageLine
+    * m\_start
+    * m\_end
+* CImageRect
+    * m\_top
+    * m\_left
+    * m\_right
+    * m\_bottom
+* CWindowPoint
+    * m\_x
+    * m\_y
+* CWindowSize
+    * m\_width
+    * m\_height
+* CWindowDistance
+    * m\_x
+    * m\_y
+* CWindowLine
+    * m\_start
+    * m\_end
+* CWindowRect
+    * m\_top
+    * m\_left
+    * m\_right
+    * m\_bottom
+* sm\_string
+    * m\_buffer
+    * m\_length
+* mm\_string
+    * m\_buffer
+    * m\_length
+
 
 ### Data Block 7
 Actual data for Collection "Audit Trail".
@@ -587,70 +975,151 @@ CRealRect, CImagePoint, CImageSize, CImageDistance, CImageLine, CImageRect,
 CWindowPoint, CWindowSize, CWindowDistance, CWindowLine, CWindowRect,
 sm\_string, mm\_string.
 
-Field Types: 16, 131, 1000, 1010, 1011, 1020, 1030, 1040
-
-    Strings (field_type=16):
-        Scanner Name: <name_of_scanner>
-        Number of Pixels: (<img_x_size_int_px> x <img_y_size_int_px>)
-        Image Area: (<img_x_size_float_mm> mm x <img_y_size_float_mm> mm)
-        Scan Memory Size: <img_size_float_kb> Kb
-        Old file name: <filename1>
-        New file name: <filename2>
-        <directory>
-        New Image Acquired
-        Save As...
-        Quantity One <Quanitity_One_version_string>
 
 ### Data Block 8
 Defines the data format for Collection "Scan Header".
 
-Data Item labels in this Collection: SCN, ScnCalibInfo, ScnFormula, ScnImgloc,
-ScnImgbox, ScnImgState, ScnQtyInfo, ScnCrdloc, ScnCrdres, ScnCrdbox, ScnParams,
-GrayResponseData.
-
 Field Types: 16, 100, 101, 102
 
-    Text of and byte pointers to data in data block 9:
-        filevers, creation_date, last_use_date, user_id, prog_name, scanner,
-        old_description, old_comment, desc, pH_orient, Mr_orient, nxpix, nypix,
-        data_fmt, bytes_per_pix, endian, max_OD, pix_at_max_OD,
-        img_size_x, img_size_y, min_pix, max_pix, mean_pix, data_ceiling,
-        data_floor, cal, formula, imgstate, qinf, params, history, color,
-        light_mode, size_mode, norm_pix, bkgd_pix, faint_loc, small_loc,
-        large_box, bkgd_box, dtct_parm_name, m_id32, m_scnId, m_imagePK, SCN,
+Possible Data Items and their Regions:
 
-        calfmt, dettyp, isotop, gel_run_date, cnts_loaded, xpo_start_date,
-        xpo_length, ScnCalibInfo
+* SCN
+    * filevers
+    * creation\_date
+    * last\_use\_date
+    * user\_id
+    * prog\_name
+    * scanner
+    * old\_description
+    * old\_comment
+    * desc
+    * pH\_orient
+    * Mr\_orient
+    * nxpix
+    * nypix
+    * data\_fmt
+    * bytes\_per\_pix
+    * endian
+    * max\_OD
+    * pix\_at\_max\_OD
+    * img\_size\_x
+    * img\_size\_y
+    * min\_pix
+    * max\_pix
+    * mean\_pix
+    * data\_ceiling
+    * data\_floor
+    * cal
+    * formula
+    * imgstate
+    * qinf
+    * params
+    * history
+    * color
+    * light\_mode
+    * size\_mode
+    * norm\_pix
+    * bkgd\_pix
+    * faint\_loc
+    * small\_loc
+    * large\_box
+    * bkgd\_box
+    * dtct\_parm\_name
+    * m\_id32
+    * m\_scnId
+    * m\_imagePK
+* ScnCalibInfo
+    * calfmt
+    * dettyp
+    * isotop
+    * gel\_run\_date
+    * cnts\_loaded
+    * xpo\_start\_date
+    * xpo\_length
+* ScnFormula
+    * type
+    * units
+    * c\_pro
+    * c\_exp
+* ScnImgloc
+    * x
+    * y
+* ScnImgbox 
+    * first
+    * last
+* ScnImgState
+    * mincon
+    * maxcon
+    * in
+    * out
+    * low\_frac
+    * high\_frac
+    * state
+    * gamma
+    * aspect
+* ScnQtyInfo
+    * qty\_range
+    * qty\_units
+    * blackIsZero
+    * scanner\_maxpix
+    * scanner\_units
+    * scanner\_bias
+    * scanner\_maxqty
+    * calstep\_count
+    * calstep\_raw
+    * calstep\_qty
+    * calstep\_qty\_offset
+    * gray\_response\_data
+    * gray\_response\_len
+    * gray\_response\_factor
+* ScnCrdloc
+    * x
+    * y
+* ScnCrdres
+    * x
+    * y
+* ScnCrdbox
+    * first
+    * last
+* ScnParams
+    * resolution
+    * scan\_area
+    * exposure\_time
+    * ref\_bkg\_time
+    * gain\_setting
+    * light\_mode
+    * color
+    * intf\_type
+    * size\_mode
+    * imaging\_mode
+    * filter\_name1
+    * filter\_name2
+    * filter\_name3
+    * filter\_name4
+    * filter\_name5
+    * filter\_id1
+    * filter\_id2
+    * filter\_id3
+    * filter\_id4
+    * filter\_id5
+    * laser\_name1
+    * laser\_name2
+    * laser\_name3
+    * laser\_name4
+    * laser\_name5
+    * laser\_id1
+    * laser\_id2
+    * laser\_id3
+    * laser\_id4
+    * laser\_id5
+    * pmt\_voltage
+    * dark\_type
+    * live\_count
+    * app\_name
+    * flat\_field
+* GrayResponseData
+    * GR\_Data
 
-        type, units, c_pro, c_exp, ScnFormula
-
-        x, y, ScnImgloc
-
-        first, last, ScnImgbox
-
-        mincon, maxcon, in, out, low_frac, high_frac, state, gamma, aspect,
-        ScnImgState
-
-        qty_range, qty_units, blackIsZero, scanner_maxpix, scanner_units,
-        scanner_bias, scanner_maxqty, calstep_count, calstep_raw, calstep_qty,
-        calstep_qty_offset, gray_response_data, gray_response_len,
-        gray_response_factor, ScnQtyInfo
-
-        x, y, ScnCrdloc
-
-        x, y, ScnCrdres
-
-        first, last, ScnCrdbox
-
-        resolution, scan_area, exposure_time, ref_bkg_time, gain_setting,
-        light_mode, color, intf_type, size_mode, imaging_mode,
-        filter_name1, filter_name2, filter_name3, filter_name4, filter_name5,
-        filter_id1, filter_id2, filter_id3, filter_id4, filter_id5,
-        laser_name1, laser_name2, laser_name3, laser_name4, laser_name5,
-        laser_id1, laser_id2, laser_id3, laser_id4, laser_id5,
-        pmt_voltage, dark_type, live_count, app_name, flat_field, ScnParams
-
-        GR_Data, GrayResponseData, Scan Header
 
 ### Data Block 9
 Actual data for Collection "Scan Header".
@@ -659,16 +1128,6 @@ Data Item labels in this Collection: SCN, ScnCalibInfo, ScnFormula, ScnImgloc,
 ScnImgbox, ScnImgState, ScnQtyInfo, ScnCrdloc, ScnCrdres, ScnCrdbox, ScnParams,
 GrayResponseData.
 
-Field Types: 1000
-
-    Data for:
-        filevers, creation_date, last_use_date, user_id, prog_name, scanner,
-        old_description, old_comment, desc, pH_orient, Mr_orient, nxpix, nypix,
-        data_fmt, bytes_per_pix, endian, max_OD, pix_at_max_OD,
-        img_size_x, img_size_y, min_pix, max_pix, mean_pix, data_ceiling,
-        data_floor, cal, formula, imgstate, qinf, params, history, color,
-        light_mode, size_mode, norm_pix, bkgd_pix, faint_loc, small_loc,
-        large_box, bkgd_box, dtct_parm_name, m_id32, m_scnId, m_imagePK, SCN,
 
 ### Data Block 10
 Only image data, no fields
