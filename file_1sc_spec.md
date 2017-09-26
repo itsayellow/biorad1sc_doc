@@ -348,16 +348,20 @@ Field bytes | Number Format | Description
 
 ### Data Container Fields
 
-Data Container fields have Field Types greater than 102. (Note: this may not
+Data container fields have Field Types greater than 102. (Note: this may not
 strictly be true. (?)  To be sure treat any Data Field in odd-numbered Data
-Blocks as Data Container fields.)
+Blocks as data container fields.)
 
 Each of these contains data, the format of which is determined by the last
 Field Type 100 that is paired with them by an item in Field Type 101.
 
-Field Types of Data Container fields are often but not limited to: 131, 1000,
+Field Types of data container fields are often but not limited to: 131, 1000,
 many numbers greater than 1000.
 
+Part of the data format of data container fields may include references to
+other field IDs, allowing a hierarchical structure of data container fields.
+If a region Data Type indicates a Reference, but the actual data is 0, then the
+region contains no data and should be ignored.
 
 ## List of Data Blocks
 
