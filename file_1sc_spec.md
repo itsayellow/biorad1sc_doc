@@ -1413,7 +1413,7 @@ possible types of data.
 Only image data, no fields
 
 Image data in this block is only pixel data, organized starting from
-bottom-left of image to upper-right.  The first bytes of this data defines the
+bottom-left of image to upper-right.  The first bytes of this data define the
 pixels of the bottom row, from left to right.  The next bytes are the
 second-to-bottom row from left to right, etc.
 
