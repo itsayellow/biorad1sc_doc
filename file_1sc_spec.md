@@ -1412,6 +1412,15 @@ possible types of data.
 ### Data Block 10
 Only image data, no fields
 
+Image data in this block is only pixel data, organized starting from
+bottom-left of image to upper-right.  The first bytes of this data defines the
+pixels of the bottom row, from left to right.  The next bytes are the
+second-to-bottom row from left to right, etc.
+
+All known images are little-endian, 16-bit grayscale.  Although the metadata
+may define another format.  (See e.g.
+'Scan Header' -> 'SCN' -> {'endian', 'bytes\_per\_pix', 'data\_fmt' })
+
 ----
 
 <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type"> File Specification for Bio-Rad 1sc Files</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/itsayellow/biorad1sc_doc/blob/master/file_1sc_spec.md" property="cc:attributionName" rel="cc:attributionURL">Matthew A. Clapp</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
