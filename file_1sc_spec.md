@@ -307,23 +307,6 @@ field to be a multiple of the bytes defined by this Field Type 100.  In this
 case, the regions defined here would be repeated when parsing the data
 container field.
 
-Data Type can be one of the following:
-
-Data Type code | Description
----------------|------------
-1  | byte
-2  | byte / ASCII
-3  | u?int16
-4  | u?int16
-5  | u?int32
-6  | u?int32
-7  | u?int64
-9  | u?int32
-15 | uint32 Reference
-17 | uint32 Reference
-.  |
-\> 17 | ???
-
 Field Type   | Contains References to types | Is Referenced by types
 -------------|------------------------------|-----------------------
 100          | 16                           | 101
@@ -336,15 +319,39 @@ Field bytes | Number Format | Description
 16-19   | uint32 | Region 0 Pointer Byte Offset
 20-23   | uint32 | Region 0 Label: Reference to Field Type 16 string
 24-27   | uint16 | Region 0 Unknown1
-28-31   | uint32 | Region 0 Word Size (bytes)
+28-31   | uint32 | Region 0 Word Size (bytes) **[1]**
 32-33   | uint16 | Region 0 Unknown2
 34-35   | uint16 | Region 0 Field Type pointed to (if Data Type is reference)
-36-39   | uint16 | Region 0 Unknown4
-40-43   | uint16 | Region 0 Unknown5
+36-39   | uint16 | Region 0 Unknown4a, 4b (ref.-related)
+40-43   | uint16 | Region 0 Unknown5a, 5b (ref.-related)
 .       |        |
 44-47   | uint16 | Region 1 Unknown0
 ...     | ...    | ...
 
+Notes:
+
+**[1]** Frustratingly, it appears that in some files for unknown reasons, the
+Region Word Size sub-field can be 0 for all/most/some regions.  In this case
+word size must be deduced from the Data Type sub-field.
+
+Data Type can be one of the following:
+
+Data Type code | Description| Word Size (bytes)
+---------------|------------|------------------
+1  | byte             | 1
+2  | byte / ASCII     | 1
+3  | u?int16          | 2
+4  | u?int16          | 2
+5  | u?int32          | 4
+6  | u?int32          | 4
+7  | u?int64          | 8
+9  | u?int32          | 4
+10 | double (float)   | 8
+15 | uint32 Reference | 4
+17 | uint32 Reference | 4
+21 | u?int32          | 4
+.  |
+\> 21 | ???           | ???
 
 ### Data Container Fields
 
