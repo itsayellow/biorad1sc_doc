@@ -197,32 +197,36 @@ consistent across files.
 Header
 ~~~~~~
 
-+----------+---------+---------------+
-| Bytes    | Type    | Description   |
-+==========+=========+===============+
-| 0-1      | uint16  | Field Type    |
-+----------+---------+---------------+
-| 2-3      | uint16  | Field Length  |
-|          |         | in bytes      |
-|          |         | (including    |
-|          |         | Header        |
-|          |         | bytes)Value   |
-|          |         | of 1          |
-|          |         | indicates     |
-|          |         | Field Length  |
-|          |         | of 20         |
-+----------+---------+---------------+
-| 4-7      | uint32  | Field ID      |
-+----------+---------+---------------+
+.. table:: **Field Header**
+   :widths: auto
+
+   +----------+---------+-------------------------------------------+
+   | Field    | Type    | Description                               |
+   | Bytes    |         |                                           |
+   +==========+=========+===========================================+
+   | 0-1      | uint16  | Field Type                                |
+   +----------+---------+-------------------------------------------+
+   | 2-3      | uint16  | Field Length in bytes (including Header   |
+   |          |         | bytes) Value of 1 indicates Field Length  |
+   |          |         | of 20                                     |
+   +----------+---------+-------------------------------------------+
+   | 4-7      | uint32  | Field ID                                  |
+   +----------+---------+-------------------------------------------+
 
 Payload
 ~~~~~~~
 
-+----------------------+-----------------------------------+----------------+
-| Bytes                | Type                              | Description    |
-+======================+===================================+================+
-| 8 - <End Of Field>   | byte or uint16 or uint32 or mix   | Payload Data   |
-+----------------------+-----------------------------------+----------------+
+.. table:: **Field Payload**
+   :widths: auto
+
+   +---------------------+----------------------------------+----------------+
+   | Field Bytes         | Type                             | Description    |
+   +=====================+==================================+================+
+   | 8 - <End Of Field>  | | byte or                        | Payload Data   |
+   |                     | | uint16 or                      |                |
+   |                     | | uint32 or                      |                |
+   |                     | | mix                            |                |
+   +---------------------+----------------------------------+----------------+
 
 Field Types
 -----------
@@ -232,10 +236,10 @@ Field Referencing Sequence
 
 After the File Header, the basic progression of Fields is as follows:
 
-1. Field Type 102 defining a collection, with a Label string reference and
+#. Field Type 102 defining a collection, with a Label string reference and
    reference to a Field Type 101 containing definitions of the data in the
    collection.
-2. Field Type 101 defining multiple data items. Each item has a string
+#. Field Type 101 defining multiple data items. Each item has a string
    reference serving as a label, the Field Type which would contain the actual
    data, and a corresponding Field Type 100 reference which serves as the Data
    Key to explain the regions of the data. The Field(s) containing the data
@@ -243,9 +247,9 @@ After the File Header, the basic progression of Fields is as follows:
    Field Type 102 is found, it redefines all info about Data Fields. If Field
    Type 102 is found before the actual data Field Type is found, then the
    actual data does not exist for this item.
-3. A series of Field Type 100's, serving as Data Keys for each of the Data
+#. A series of Field Type 100's, serving as Data Keys for each of the Data
    Items.
-4. A series of data container fields, with Field Types greater than 102,
+#. A series of data container fields, with Field Types greater than 102,
    usually 1000 and above.
 
 This cycle starts over when the next Field Type 102 is encountered.
