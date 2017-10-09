@@ -13,7 +13,7 @@ Header
 ~~~~~~
 
 .. table:: **Field Header**
-   :widths: auto
+   :widths: 1,1,4
 
    +----------+---------+-------------------------------------------+
    | Field    | Type    | Description                               |
@@ -23,8 +23,7 @@ Header
    +----------+---------+-------------------------------------------+
    | 2-3      | uint16  | | Field Length in bytes (including Header |
    |          |         |   bytes)                                  |
-   |          |         | | Value of 1 indicates Field Length       |
-   |          |         |   of 20                                   |
+   |          |         | | Value of 1 indicates Field Length of 20 |
    +----------+---------+-------------------------------------------+
    | 4-7      | uint32  | Field ID                                  |
    +----------+---------+-------------------------------------------+
@@ -33,7 +32,7 @@ Payload
 ~~~~~~~
 
 .. table:: **Field Payload**
-   :widths: auto
+   :widths: 1,1,4
 
    +---------------------+----------------------------------+----------------+
    | Field Bytes         | Type                             | Description    |
