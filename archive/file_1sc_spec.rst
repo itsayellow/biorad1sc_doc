@@ -2,6 +2,14 @@
    :format: latex
 ..
 
+NOTE: This file is deprecated.
+==============================
+
+For the specification for 1sc files, please see:
+[biorad1sc-doc.rtfd.io](http://biorad1sc-doc.readthedocs.io/)
+
+----
+
 File Specification for Bio-Rad 1sc files
 ========================================
 

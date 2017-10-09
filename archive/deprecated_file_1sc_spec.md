@@ -1,6 +1,6 @@
 # NOTE: This file is deprecated.
-For the new reference specification for 1sc files, please see:
-[file\_1sc\_spec.rst](https://github.com/itsayellow/biorad1sc_doc/blob/master/file_1sc_spec.rst)
+For the specification for 1sc files, please see:
+[biorad1sc-doc.rtfd.io](http://biorad1sc-doc.readthedocs.io/)
 
 ----
 
