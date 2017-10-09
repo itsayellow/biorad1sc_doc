@@ -366,11 +366,11 @@ String Field
 
    +------------+------------+---------------+--------------------------------+
    | Field Type | Contains   | Is Referenced | Notes                          |
-   | Field Type | References | by types      |                                |
+   |            | References | by types      |                                |
    |            | to types   |               |                                |
    +============+============+===============+================================+
    | 16         | **None**   | 100, 101,     | | Previous data fields         |
-   |            |            | 102, 131,     |   reference this via Field ID  |
+   |            |            | 102, 131,     |   reference this via Field ID. |
    |            |            | 1000          | | Null-terminated string.      |
    |            |            |               |   (0x00 is always last byte    |
    |            |            |               |   of payload)                  |
@@ -516,7 +516,7 @@ container field.
    | 24-27       | uint16        | Region 0 Unknown1                          |
    +-------------+---------------+--------------------------------------------+
    | 28-31       | uint32        | Region 0 Word Size (bytes)                 |
-   |             |               | (or 0x00000000) [#region_word_size]_       |
+   |             |               | (**or 0x00000000**) [#region_word_size]_   |
    +-------------+---------------+--------------------------------------------+
    | 32-33       | uint16        | Region 0 Unknown2                          |
    +-------------+---------------+--------------------------------------------+
