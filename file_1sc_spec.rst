@@ -99,12 +99,12 @@ isolation,) one can use the following method when encountering Field Type 0:
 
 2. Parse the Data Block Footer
 
-   #. Keep reading groups of 7x uint16 values until the end of this Data Block,
+   * Keep reading groups of 7x uint16 values until the end of this Data Block,
       known from reading of the Data Block info fields in the File Header.
 
 3. Parse the next Data Block Header
 
-   #. Read 2x uint32 values.
+   * Read 2x uint32 values.
 
 Data Block Structure
 --------------------
