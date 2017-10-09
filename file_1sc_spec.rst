@@ -1929,7 +1929,14 @@ All known images are little-endian, 16-bit grayscale. Although the metadata may
 define another format. (See e.g. 'Scan Header' -> 'SCN' -> {'endian',
 'bytes\_per\_pix', 'data\_fmt' })
 
---------------
+----
 
- File Specification for Bio-Rad 1sc Files by Matthew A. Clapp is licensed under
-a Creative Commons Attribution-ShareAlike 4.0 International License.
+|Creative Commons License|
+ File Specification for Bio-Rad 1sc Files by `Matthew A.  Clapp <https://github.com/itsayellow/biorad1sc_doc/blob/master/file_1sc_spec.rst>`__ is licensed under a `Creative Commons Attribution-ShareAlike 4.0 International License <http://creativecommons.org/licenses/by-sa/4.0/>`__.
+
+.. |Creative Commons License| image:: https://i.creativecommons.org/l/by-sa/4.0/88x31.png
+   :target: http://creativecommons.org/licenses/by-sa/4.0/
+
+----
+
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type"> File Specification for Bio-Rad 1sc Files</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/itsayellow/biorad1sc_doc/blob/master/file_1sc_spec.rst" property="cc:attributionName" rel="cc:attributionURL">Matthew A. Clapp</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
