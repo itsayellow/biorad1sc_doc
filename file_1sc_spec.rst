@@ -28,82 +28,50 @@ of the file is indicating.
 The file is made up of a file header from bytes 0 through 4139, followed by 11
 contiguous Data Blocks.
 
-**File Header**
+.. table:: **File Header**
+   :widths: auto
 
-+--------------+---------------------+----------------+
-| File bytes   | Numbers or ASCII    | Description    |
-+==============+=====================+================+
-| 0-1          | Numbers             | 0xAF, 0xAF     |
-|              |                     | ('Magic        |
-|              |                     | Number' 1sc    |
-|              |                     | file ID)       |
-+--------------+---------------------+----------------+
-| 2-31         | ASCII               | ``Stable File  |
-|              |                     | Version 2.0``\ |
-|              |                     |  :raw-latex:`\ |
-|              |                     | r`:raw-latex:` |
-|              |                     | \n`\ ````\r\n  |
-|              |                     | 32-55      | A |
-|              |                     | SCII   |``\ In |
-|              |                     | tel            |
-|              |                     | Format\ ``\<10 |
-|              |                     |  spaces\>\r\n  |
-|              |                     | 56-95      | A |
-|              |                     | SCII   |``\ Bi |
-|              |                     | o-Rad          |
-|              |                     | Scan File - ID |
-|              |                     | \`\`<17-digit  |
-|              |                     | number>        |
-+--------------+---------------------+----------------+
-| 96-135       | ASCII               | <38            |
-|              |                     | spaces>:raw-la |
-|              |                     | tex:`\r`:raw-l |
-|              |                     | atex:`\n       |
-|              |                     | `136-139       |
-+--------------+---------------------+----------------+
-| 140-143      | Numbers             | 0x03, 0x00,    |
-|              |                     | 0x00, 0x00     |
-|              |                     | (uint32        |
-|              |                     | 0x00000003 =   |
-|              |                     | 3)             |
-+--------------+---------------------+----------------+
-| 144-147      | Numbers             | 0x00, 0x00,    |
-|              |                     | 0x00, 0x00     |
-|              |                     | (uint32        |
-|              |                     | 0x00000000 =   |
-|              |                     | 0)             |
-+--------------+---------------------+----------------+
-| 148-151      | uint32              | Start of Data  |
-|              |                     | Block 0 (byte  |
-|              |                     | offset from    |
-|              |                     | start of file) |
-+--------------+---------------------+----------------+
-| 152-155      | uint32              | <length of     |
-|              |                     | file after     |
-|              |                     | file           |
-|              |                     | header>Number  |
-|              |                     | of bytes from  |
-|              |                     | start of Data  |
-|              |                     | Block 0 to End |
-|              |                     | Of File.       |
-+--------------+---------------------+----------------+
-| 156-159      | Numbers             | 0x00, 0x00,    |
-|              |                     | 0x01, 0x00     |
-|              |                     | (uint32        |
-|              |                     | 0x10000 =      |
-|              |                     | 4096)          |
-+--------------+---------------------+----------------+
-| 160-379      | Numbers             | Data Fields    |
-|              |                     | Describing     |
-|              |                     | Data Blocks11x |
-|              |                     | 20-byte Fields |
-+--------------+---------------------+----------------+
-| 380-4139     | Numbers             | 3760 bytes of  |
-|              |                     | 0x00           |
-+--------------+---------------------+----------------+
-| 4140-        | Mixed               | Start of Data  |
-|              |                     | Block 0        |
-+--------------+---------------------+----------------+
+   +------------+------------------+------------------------------------------+
+   | File bytes | Numbers or ASCII | Description                              |
+   +============+==================+==========================================+
+   | 0-1        | Numbers          | 0xAF, 0xAF ('Magic Number' 1sc file ID)  |
+   +------------+------------------+------------------------------------------+
+   | 2-31       | ASCII            | ``Stable File Version 2.0``\ \\r\\n      |
+   |            |                  | <2 spaces>\\r\\n                         |
+   +------------+------------------+------------------------------------------+
+   | 32-55      | ASCII            | ``Intel Format``\ <10 spaces>\\r\\n      |
+   +------------+------------------+------------------------------------------+
+   | 56-95      | ASCII            | ``Bio-Rad Scan File - ID``\ <space>\     |
+   |            |                  | <17-digit number>                        |
+   +------------+------------------+------------------------------------------+
+   | 96-135     | ASCII            | <38 spaces>\\r\\n                        |
+   +------------+------------------+------------------------------------------+
+   | 136-139    | Numbers          | 0xC8, 0x00, 0x00, 0x00                   |
+   |            |                  | (or uint32 0x000000C8 = 200)             |
+   +------------+------------------+------------------------------------------+
+   | 140-143    | Numbers          | 0x03, 0x00, 0x00, 0x00                   |
+   |            |                  | (or uint32 0x00000003 = 3)               |
+   +------------+------------------+------------------------------------------+
+   | 144-147    | Numbers          | 0x00, 0x00, 0x00, 0x00                   |
+   |            |                  | (or uint32 0x00000000 = 0)               |
+   +------------+------------------+------------------------------------------+
+   | 148-151    | uint32           | Start of Data Block 0 (byte offset from  |
+   |            |                  | start of file)                           |
+   +------------+------------------+------------------------------------------+
+   | 152-155    | uint32           | | <length of file after file header>     |
+   |            |                  | | Number of bytes from start of Data     |
+   |            |                  |   Block 0 to End Of File.                |
+   +------------+------------------+------------------------------------------+
+   | 156-159    | Numbers          | 0x00, 0x00, 0x01, 0x00                   |
+   |            |                  | (or uint32 0x10000 = 4096)               |
+   +------------+------------------+------------------------------------------+
+   | 160-379    | Numbers          | | Data Fields describing Data Blocks     |
+   |            |                  | | 11x 20-byte Fields                     |
+   +------------+------------------+------------------------------------------+
+   | 380-4139   | Numbers          | 3760 bytes of 0x00                       |
+   +------------+------------------+------------------------------------------+
+   | 4140-      | Mixed            | Start of Data Block 0                    |
+   +------------+------------------+------------------------------------------+
 
 Within each Data Block are a series of Data Fields. (See Sections **Field
 Structure** and **Field Types** for descriptions)
@@ -125,18 +93,18 @@ isolation,) one can use the following method when encountering Field Type 0:
 
 1. Parse the End Of Data Block Field
 
-   -  Field Type: 0
-   -  Field Len: 8
-   -  Field ID: 0
+   * Field Type: 0
+   * Field Len: 8
+   * Field ID: 0
 
 2. Parse the Data Block Footer
 
-   1. Keep reading groups of 7x uint16 values until the end of this Data Block,
+   #. Keep reading groups of 7x uint16 values until the end of this Data Block,
       known from reading of the Data Block info fields in the File Header.
 
 3. Parse the next Data Block Header
 
-   2. Read 2x uint32 values.
+   #. Read 2x uint32 values.
 
 Data Block Structure
 --------------------
