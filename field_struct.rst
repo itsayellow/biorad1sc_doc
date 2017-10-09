@@ -1,3 +1,5 @@
+.. _sec-field-structure:
+
 Field Structure
 ---------------
 

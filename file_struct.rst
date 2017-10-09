@@ -52,8 +52,8 @@ contiguous Data Blocks.
    | 4140-      | Mixed            | Start of Data Block 0                    |
    +------------+------------------+------------------------------------------+
 
-Within each Data Block are a series of Data Fields. (See Sections **Field
-Structure** and **Field Types** for descriptions)
+Within each Data Block are a series of Data Fields. (See Sections
+:ref:`sec-field-structure` and :ref:`sec-field-types` for descriptions)
 
 Fields can contain references to other fields, by using a uint32 Data ID to
 refer to other fields. Each referenceable field has its own unique Data ID

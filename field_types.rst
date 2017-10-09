@@ -1,3 +1,5 @@
+.. _sec-field-types:
+
 Field Types
 -----------
 
@@ -6,9 +8,9 @@ Field Referencing Sequence
 
 After the File Header, the basic progression of Fields is as follows:
 
-#. Field Type 102 defining a collection, with a Label string reference and
+#. Field Type 102 defining a Collection, with a Label string reference and
    reference to a Field Type 101 containing definitions of the data in the
-   collection.
+   Collection.
 #. Field Type 101 defining multiple data items. Each item has a string
    reference serving as a label, the Field Type which would contain the actual
    data, and a corresponding Field Type 100 reference which serves as the Data
@@ -242,7 +244,7 @@ until end of field.
 Field Type 100
 ^^^^^^^^^^^^^^
 
-Data Key explaining each Data Item in a collection.
+Data Key explaining each Data Item in a Collection.
 
 Every 36 bytes is a data region definition, starting at beginning of Field
 Payload, until end of field. Field ID references are to String Fields later in
