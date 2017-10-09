@@ -1,5 +1,5 @@
-**NOTE:** This file is deprecated.  For the new reference specification for 
-1sc files, please see:
+# **NOTE:** This file is deprecated.
+For the new reference specification for 1sc files, please see:
 [file\_1sc\_spec.rst](https://github.com/itsayellow/biorad1sc_doc/blob/master/file_1sc_spec.rst)
 
 ----
