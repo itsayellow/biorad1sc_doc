@@ -206,9 +206,10 @@ Header
    +==========+=========+===========================================+
    | 0-1      | uint16  | Field Type                                |
    +----------+---------+-------------------------------------------+
-   | 2-3      | uint16  | Field Length in bytes (including Header   |
-   |          |         | bytes) Value of 1 indicates Field Length  |
-   |          |         | of 20                                     |
+   | 2-3      | uint16  | | Field Length in bytes (including Header |
+   |          |         |   bytes)                                  |
+   |          |         | | Value of 1 indicates Field Length       |
+   |          |         |   of 20                                   |
    +----------+---------+-------------------------------------------+
    | 4-7      | uint32  | Field ID                                  |
    +----------+---------+-------------------------------------------+
