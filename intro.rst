@@ -18,11 +18,11 @@ gave me the start in investigating the structure of this file.
 ----
 
 |Creative Commons License|
- File Specification for Bio-Rad 1sc Files by `Matthew A.  Clapp <https://github.com/itsayellow/biorad1sc_doc/blob/master/file_1sc_spec.rst>`__ is licensed under a `Creative Commons Attribution-ShareAlike 4.0 International License <http://creativecommons.org/licenses/by-sa/4.0/>`__.
+ File Specification for Bio-Rad 1sc Files by `Matthew A.  Clapp <http://biorad1sc-doc.readthedocs.io/>`__ is licensed under a `Creative Commons Attribution-ShareAlike 4.0 International License <http://creativecommons.org/licenses/by-sa/4.0/>`__.
 
 .. |Creative Commons License| image:: https://i.creativecommons.org/l/by-sa/4.0/88x31.png
    :target: http://creativecommons.org/licenses/by-sa/4.0/
 
 ----
 
-<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type"> File Specification for Bio-Rad 1sc Files</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="https://github.com/itsayellow/biorad1sc_doc/blob/master/file_1sc_spec.rst" property="cc:attributionName" rel="cc:attributionURL">Matthew A. Clapp</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br /><span xmlns:dct="http://purl.org/dc/terms/" href="http://purl.org/dc/dcmitype/Text" property="dct:title" rel="dct:type"> File Specification for Bio-Rad 1sc Files</span> by <a xmlns:cc="http://creativecommons.org/ns#" href="http://biorad1sc-doc.readthedocs.io/" property="cc:attributionName" rel="cc:attributionURL">Matthew A. Clapp</a> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
