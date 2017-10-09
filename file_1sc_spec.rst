@@ -36,7 +36,7 @@ contiguous Data Blocks.
    +============+==================+==========================================+
    | 0-1        | Numbers          | 0xAF, 0xAF ('Magic Number' 1sc file ID)  |
    +------------+------------------+------------------------------------------+
-   | 2-31       | ASCII            | ``Stable File Version 2.0``\ \\r\\n      |
+   | 2-31       | ASCII            | ``Stable File Version 2.0``\ \\r\\n\     |
    |            |                  | <2 spaces>\\r\\n                         |
    +------------+------------------+------------------------------------------+
    | 32-55      | ASCII            | ``Intel Format``\ <10 spaces>\\r\\n      |
@@ -126,13 +126,16 @@ length does **not** include the Data Block Footer.
 The second number is currently of unknown significance. It has been observed to
 be one of: 1, 2, 4, 7, 8.
 
-+---------+----------+------------------------------------------------+
-| Bytes   | Type     | Description                                    |
-+=========+==========+================================================+
-| 0-3     | uint32   | Data Block Length in Bytes (Header + Fields)   |
-+---------+----------+------------------------------------------------+
-| 4-7     | uint32   | Unknown (1, 2, 4, 7, or 8)                     |
-+---------+----------+------------------------------------------------+
+.. table:: **Data Block Header**
+   :widths: auto
+
+   +---------+----------+------------------------------------------------+
+   | Bytes   | Type     | Description                                    |
+   +=========+==========+================================================+
+   | 0-3     | uint32   | Data Block Length in Bytes (Header + Fields)   |
+   +---------+----------+------------------------------------------------+
+   | 4-7     | uint32   | Unknown (1, 2, 4, 7, or 8)                     |
+   +---------+----------+------------------------------------------------+
 
 Data Block Fields
 ~~~~~~~~~~~~~~~~~
@@ -154,23 +157,26 @@ The footer is a summary of information about the fields seen in this Data
 Block. It is composed of groups of 14 bytes. Each group summarizes information
 on a particular Field Type. The groups are in the following format:
 
-+---------+----------+-----------------------------+
-| Bytes   | Type     | Description                 |
-+=========+==========+=============================+
-| 0-1     | uint16   | Item 0 Field Type           |
-+---------+----------+-----------------------------+
-| 2-5     | uint32   | Item 0 Num. Occurrences A   |
-+---------+----------+-----------------------------+
-| 6-9     | uint32   | Item 0 Num. Occurrences B   |
-+---------+----------+-----------------------------+
-| 10-13   | uint32   | Item 0 Unknown              |
-+---------+----------+-----------------------------+
-| .       |          |                             |
-+---------+----------+-----------------------------+
-| 14-15   | uint16   | Item 1 Field Type           |
-+---------+----------+-----------------------------+
-| ...     | ...      | ...                         |
-+---------+----------+-----------------------------+
+.. table:: **Data Block Footer**
+   :widths: auto
+
+   +---------+----------+-----------------------------+
+   | Bytes   | Type     | Description                 |
+   +=========+==========+=============================+
+   | 0-1     | uint16   | Item 0 Field Type           |
+   +---------+----------+-----------------------------+
+   | 2-5     | uint32   | Item 0 Num. Occurrences A   |
+   +---------+----------+-----------------------------+
+   | 6-9     | uint32   | Item 0 Num. Occurrences B   |
+   +---------+----------+-----------------------------+
+   | 10-13   | uint32   | Item 0 Unknown              |
+   +---------+----------+-----------------------------+
+   |         |          |                             |
+   +---------+----------+-----------------------------+
+   | 14-15   | uint16   | Item 1 Field Type           |
+   +---------+----------+-----------------------------+
+   | \...    | \...     | \...                        |
+   +---------+----------+-----------------------------+
 
 "Occurrences A" and "Occurrences B" sum to the total number of occurrences of
 the Field Type in the Data Block. They must refer to different types of
