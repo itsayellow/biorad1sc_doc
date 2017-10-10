@@ -61,15 +61,26 @@ Data Block Info Fields
 Data Block Info Fields are special fields found only in the File Header. They
 define the location and size of the Data Blocks in the file.
 
+.. table:: **Data Block Info Field Type Summary**
+   :widths: 1,1,1,4
+
+   +------------+------------+---------------+--------------------------------+
+   | Field Type | Contains   | Is Referenced | Notes                          |
+   |            | References | by types      |                                |
+   |            | to types   |               |                                |
+   +============+============+===============+================================+
+   | 126, 127,  | **None**   | **None**      | | Field ID = 0                 |
+   | 128, 129,  |            |               | | Field Len = 20 (bytes 2-3 in |
+   | 130, 132,  |            |               |   header uint16 = 0x0001)      |
+   | 133, 140,  |            |               |                                |
+   | 141, 142,  |            |               |                                |
+   | or 143     |            |               |                                |
+   +------------+------------+---------------+--------------------------------+
+
 Structure
 ^^^^^^^^^
 
 All Data Block Info Fields have the following structure:
-
--  **NO** references to other fields
--  **NOT** referenced by other field
--  Field ID = 0
--  Field Len = 20 (bytes 2-3 in header uint16 = 1)
 
 .. table:: **Data Block Info Field Structure**
    :widths: auto
