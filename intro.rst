@@ -23,6 +23,4 @@ gave me the start in investigating the structure of this file.
 .. |Creative Commons License| image:: https://i.creativecommons.org/l/by-sa/4.0/88x31.png
    :target: http://creativecommons.org/licenses/by-sa/4.0/
 
-(`Raw HTML of above attribution`_)
-
-.. _Raw HTML of above attribution: cc_by_sa_html.rst
+( :ref:`html-cc-by-sa` )

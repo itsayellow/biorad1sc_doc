@@ -1,4 +1,7 @@
+.. _html-cc-by-sa:
+
 HTML code for CC_BY_SA atribution:
+----------------------------------
 
 .. code:: HTML
 
