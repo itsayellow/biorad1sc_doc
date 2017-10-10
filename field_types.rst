@@ -38,8 +38,8 @@ only contains raw image data.
 NOP Fields
 ~~~~~~~~~~
 
-.. table:: **NOP Field Types**
-   :widths: auto
+.. table:: **NOP Field Types Summary**
+   :widths: 1,1,1,4
 
    +------------+------------+---------------+-------------------------------+
    | Field Type | Contains   | Is Referenced | Notes                         |
@@ -89,10 +89,10 @@ All Data Block Info Fields have the following structure:
    |             |               | | Byte offset from start of file.          |
    +-------------+---------------+--------------------------------------------+
    | 12-15       | uint32        | | Data Block length                        |
-   | 12-15       | uint32        | | Number of bytes in Data Block.           |
+   |             |               | | Number of bytes in Data Block.           |
    +-------------+---------------+--------------------------------------------+
    | 16-17       | uint16?       | | Data Block number?                       |
-   | 16-17       | uint16?       | | (except 11 for Data Block 0 Info)        |
+   |             |               | | (except 11 for Data Block 0 Info)        |
    +-------------+---------------+--------------------------------------------+
    | 18-19       | uint16?       | Unknown                                    |
    +-------------+---------------+--------------------------------------------+
@@ -134,7 +134,7 @@ String Field
 ~~~~~~~~~~~~
 
 .. table:: **String Field Type Summary**
-   :widths: auto
+   :widths: 1,1,1,4
 
    +------------+------------+---------------+--------------------------------+
    | Field Type | Contains   | Is Referenced | Notes                          |
@@ -168,13 +168,16 @@ Field Type 102
 Data Collection definition. A **Root Field** of hierarchy.
 
 .. table:: **Field Type 102 Summary**
-   :widths: auto
+   :widths: 1,1,1,4
 
-   +--------------+--------------------------------+--------------------------+
-   | Field Type   | Contains References to types   | Is Referenced by types   |
-   +==============+================================+==========================+
-   | 102          | 16, 101                        | **None**                 |
-   +--------------+--------------------------------+--------------------------+
+   +------------+------------+---------------+-------------------------------+
+   | Field Type | Contains   | Is Referenced | Notes                         |
+   |            | References | by types      |                               |
+   |            | to types   |               |                               |
+   +============+============+===============+===============================+
+   | 102        | 16, 101    | **None**      | First field of even-numbered  |
+   |            |            |               | Data Blocks.                  |
+   +------------+------------+---------------+-------------------------------+
 
 .. table:: **Field Type 102 Structure**
    :widths: auto
@@ -204,13 +207,16 @@ Every 20 bytes defines a data item (one following data container Field Type)
 until end of field.
 
 .. table:: **Field Type 101 Summary**
-   :widths: auto
+   :widths: 1,1,1,4
 
-   +--------------+--------------------------------+--------------------------+
-   | Field Type   | Contains References to types   | Is Referenced by types   |
-   +==============+================================+==========================+
-   | 101          | 16, 100                        | 102                      |
-   +--------------+--------------------------------+--------------------------+
+   +------------+------------+---------------+-------------------------------+
+   | Field Type | Contains   | Is Referenced | Notes                         |
+   |            | References | by types      |                               |
+   |            | to types   |               |                               |
+   +============+============+===============+===============================+
+   | 101        | 16, 100    | 102           | Second field of even-numbered |
+   |            |            |               | Data Blocks.                  |
+   +------------+------------+---------------+-------------------------------+
 
 .. table:: **Field Type 101 Structure**
    :widths: auto
@@ -260,13 +266,18 @@ case, the regions defined here would be repeated when parsing the data
 container field.
 
 .. table:: **Field Type 100 Summary**
-   :widths: auto
+   :widths: 1,1,1,4
 
-   +--------------+--------------------------------+--------------------------+
-   | Field Type   | Contains References to types   | Is Referenced by types   |
-   +==============+================================+==========================+
-   | 100          | 16                             | 101                      |
-   +--------------+--------------------------------+--------------------------+
+   +------------+------------+---------------+-------------------------------+
+   | Field Type | Contains   | Is Referenced | Notes                         |
+   |            | References | by types      |                               |
+   |            | to types   |               |                               |
+   +============+============+===============+===============================+
+   | 100        | 16         | 101           | After Field Type 101, this    |
+   |            |            |               | field type has repeated       |
+   |            |            |               | instances until the end of    |
+   |            |            |               | even-numbered Data Block.     |
+   +------------+------------+---------------+-------------------------------+
 
 .. table:: **Field Type 100 Structure**
    :widths: auto
