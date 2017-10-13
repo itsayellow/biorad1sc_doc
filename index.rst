@@ -3,7 +3,7 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-File Specification for Bio-Rad 1sc files
+File Specification for Bio-Rad 1sc Files
 ========================================
 
 
