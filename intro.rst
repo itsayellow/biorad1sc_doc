@@ -16,7 +16,7 @@ format" <https://docs.openmicroscopy.org/bio-formats/5.6.0/formats/bio-rad-gel.h
 gave me the start in investigating the structure of this file.
 
 License Information
--------------------
+~~~~~~~~~~~~~~~~~~~
 
 |Creative Commons License|
  File Specification for Bio-Rad 1sc Files by `Matthew A.  Clapp <http://biorad1sc-doc.readthedocs.io/>`__ is licensed under a `Creative Commons Attribution-ShareAlike 4.0 International License <http://creativecommons.org/licenses/by-sa/4.0/>`__.
