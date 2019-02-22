@@ -12,7 +12,7 @@ Many thanks to the team of the `Open Microscopy
 Environment <https://www.openmicroscopy.org/>`__. Their software package
 `Bio-Formats <https://www.openmicroscopy.org/bio-formats/>`__ and their
 implementation of `"Bio-Rad Gel 1sc file
-format" <https://docs.openmicroscopy.org/bio-formats/5.6.0/formats/bio-rad-gel.html>`__
+format" <https://docs.openmicroscopy.org/bio-formats/6.0.0/formats/bio-rad-gel.html>`__
 gave me the start in investigating the structure of this file.
 
 License Information
