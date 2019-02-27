@@ -10,8 +10,8 @@ work and examination of 1sc files.
 
 Concurrently with the analysis of this 1sc file format, an implementation of a 
 1sc file reader was created in python.  See:
-<https://github.com/itsayellow/biorad1sc_reader>`__ and
-<https://pypi.org/project/biorad1sc-reader/>`__
+`biorad1sc_reader on github <https://github.com/itsayellow/biorad1sc_reader>`__ and
+`biorad1sc-reader on pypi <https://pypi.org/project/biorad1sc-reader/`__.
 
 Many thanks to the team of the `Open Microscopy
 Environment <https://www.openmicroscopy.org/>`__. Their software package
