@@ -8,6 +8,11 @@ See end of this section for CC-SA information.
 The information in this document has been gleaned from many hours of detective
 work and examination of 1sc files.
 
+Concurrently with the analysis of this 1sc file format, an implementation of a 
+1sc file reader was created in python.  See:
+<https://github.com/itsayellow/biorad1sc_reader>`__ and
+<https://pypi.org/project/biorad1sc-reader/>`__
+
 Many thanks to the team of the `Open Microscopy
 Environment <https://www.openmicroscopy.org/>`__. Their software package
 `Bio-Formats <https://www.openmicroscopy.org/bio-formats/>`__ and their
